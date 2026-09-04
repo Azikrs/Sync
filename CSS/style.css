@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Google Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #05070d;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("../IMG/Background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  z-index: -1;
+}
+
+.header-principal {
+    padding: 15px 50px;
+    color: #343a40;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto;
+}
+
+.header-nav img {
+    transition: 0.15s all ease;
+    filter: brightness(0) invert(1);
+    opacity: 1;
+}
+
+.header-nav img:hover {
+    cursor: pointer;
+    transition: 0.15s all ease;
+    opacity: 0.8;
+}
+
+.header-nav {
+    gap: 50px;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0px;
+}
+
+.header-nav a{
+    text-decoration: none;
+    color: #fff;
+    transition: 0.15s all ease;
+}
+
+.header-nav li a:hover{
+    transition: 0.15s all ease;
+    color: #d3d3d3;
+}
+
+.header-nav ul {
+    list-style: none;
+    display: flex;
+    gap:50px;
+}
+
+.header-nav li {
+    color: #fff;
+    list-style: none;
+    display: flex;
+}
+
+.header-botoes {
+    display: flex;
+    gap: 25px;
+}
+
+.header-botoes button{
+    padding: 10px 40px;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 100px;
+}
+
+.botao-header:hover{
+    transition: 0.15s all ease;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.botao-header2:hover {
+    color: #000000;
+    background-color: #fff;
+    transition: 0.10s all ease;
+    cursor: pointer;
+}
+
+.botao-header {
+    transition: 0.15s all ease;
+    background-color: #fff;
+    color: #000;
+    border: none;
+}
+
+.botao-header2 {
+    transition: 0.15s all ease;
+    background-color: #1b1b1b00;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+.main-hero {
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    gap:50px;
+    width:64%;
+    text-align: center;
+    margin: auto;
+}
+
+.main-hero p {
+    width:60%;
+    line-height: 1.5;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+}
+
+.main-hero h1 {
+    color:#ffffff;
+    font-size: 80px;
+    line-height: 1;
+    font-weight: 100;
+    letter-spacing: -1.5px;
+}
+
+.main-hero h1 strong {
+    font-weight: 800;
+    color:#fff;
+}
+
+.main-botoes {
+    display: flex;
+    gap: 20px;
+}
+
+
+
+.main-hero button {
+    padding: 15px 40px;
+    gap: 30px;
+    border-radius: 100px;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -1px;
+}
+
+.botao-main:hover{
+    transition: 0.15s all ease;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.botao-main2:hover {
+    color: #000000;
+    background-color: #fff;
+    transition: 0.15s all ease;
+    cursor: pointer;
+}
+
+.botao-main{
+    transition: 0.15s all ease;
+    background-color: #ffffff;
+    color: #000000;
+    border :none;
+}
+
+.botao-main2{
+    transition: 0.15s all ease;
+    background-color: #1b1b1b00;
+    color: #fff;
+    border :1px solid #fff;
+}
+
+.main-segundo {
+    padding: 500px 0px 100px;
+}
+
+.main-segundo-hero {
+    padding:100px 0px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    gap:90px;
+    width:64%;
+    text-align: center;
+    margin:auto;
+    background-color: #17264357;
+    border-radius: 25px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
