@@ -1,60 +1,26 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="IMG/Aflora.png">
-    <link rel="stylesheet" href="CSS/style.css">
-    <title>Aflora | Explore o Brasil</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F7F4EC">
+  <meta name="description" content="Existe um Brasil inteiro para descobrir. Explore paisagens, cultura e lugares extraordinários em um atlas visual feito para despertar a vontade de ir.">
+  <meta property="og:title" content="Aflora — O Brasil, além do óbvio.">
+  <meta property="og:description" content="Um atlas de paisagens, histórias e descobertas pelo Brasil.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="IMG/aflora-mark.svg">
+  <link rel="preload" href="IMG/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="IMG/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <title>Aflora — O Brasil, além do óbvio.</title>
 </head>
 <body>
-    <header class="header-principal" data-site-header>
-
-        <img href="#" src="IMG/Aflora.png" alt="Logo Aflora" width="150" height="auto" style="filter: brightness(0);">
-
-        <nav id="navegacao-principal">
-            <ul>
-                <li><a href="Index.html">Destinos</a></li>
-                <li><a href="#">Regiões</a></li>
-                <li><a href="#">Categorias</a></li>
-                <li><a href="#">Mapa</a></li>
-                <li><a href="#">Sobre</a></li>
-            </ul>
-        </nav>
-
-
-        <button class="header-cta">Explorar Destinos</button>
-
-        <button class="header-menu-toggle" type="button" aria-label="Abrir menu de navegação" aria-controls="navegacao-principal" aria-expanded="false">
-            <img src="IMG/menu.png" alt="" aria-hidden="true">
-        </button>
-    </header>
-
-    <div class="pagina-inicial" data-parallax-hero>
-        <div class="hero-background" data-parallax-layer="background" aria-hidden="true"></div>
-
-        <div class="conteudo-pagina-inicial">
-            <div class="sobreposicao-parallax" data-parallax-layer="content">
-                <h2>Seu próximo destino pode estar mais perto do que você imagina.</h2>
-                <h1>Explore o Brasil com a Aflora</h1>
-            </div>
-
-            <div class="hero-content-front" data-parallax-layer="content">
-                <p class="descricao-pagina-inicial">Explore lugares incríveis por todo o Brasil, encontre destinos por região ou categoria e descubra novos caminhos para a sua próxima viagem.</p>
-
-                <div class="botoes-pagina-inicial">
-                    <button>Explorar Destinos</button>
-                    <button>Pontos Populares</button>
-                </div>
-            </div>
-        
-        </div>
-
-        <div class="hero-foreground" data-parallax-layer="foreground" aria-hidden="true">
-            <img src="IMG/BackgroundFront.png" alt="">
-        </div>
-    </div>
-
-    <script src="Script/script.js"></script>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header id="site-header" class="site-header"></header>
+  <main id="conteudo" tabindex="-1"></main>
+  <footer id="site-footer" class="site-footer"></footer>
+  <dialog id="navigation-dialog" class="navigation-dialog" aria-labelledby="navigation-title"></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript"><h1>Aflora — Explore o Brasil</h1><p>Ative o JavaScript para percorrer o atlas, buscar destinos e descobrir as paisagens do Brasil.</p></div></noscript>
+  <script type="module" src="/Script/script.js"></script>
 </body>
 </html>
