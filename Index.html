@@ -3,106 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="IMG/Aflora.png">
     <link rel="stylesheet" href="CSS/style.css">
-    <link rel="stylesheet" href="CSS/sync-modes-animation.css">
-    <title>Sync</title>
+    <title>Aflora | Explore o Brasil</title>
 </head>
 <body>
-    <header class="header-principal">
+    <header class="header-principal" data-site-header>
 
-        <nav class="header-nav">
-            <a href="#">
-                <img src="IMG/Logo Sync.png" alt="Logo Sync" width="80" height="auto">
-            </a>
+        <img href="#" src="IMG/Aflora.png" alt="Logo Aflora" width="150" height="auto" style="filter: brightness(0);">
+
+        <nav id="navegacao-principal">
             <ul>
-                <li><a href="#">Modos</a></li>
-                <li><a href="#">Recursos</a></li>
-                <li><a href="#">Integrações</a></li>
-                <li><a href="#">Download</a></li>
+                <li><a href="Index.html">Destinos</a></li>
+                <li><a href="#">Regiões</a></li>
+                <li><a href="#">Categorias</a></li>
+                <li><a href="#">Mapa</a></li>
                 <li><a href="#">Sobre</a></li>
-                <li><a href="#">Suporte</a></li>
             </ul>
-            <img src="IMG/menu.png" alt="menu" width="20" height="20" style="filter: invert(1);">
         </nav>
 
-        <section class="header-botoes">
-            <button class="botao-header">Entrar</button>
-            <button class="botao-header2">Baixar para Windows</button>
-        </section>
 
+        <button class="header-cta">Explorar Destinos</button>
+
+        <button class="header-menu-toggle" type="button" aria-label="Abrir menu de navegação" aria-controls="navegacao-principal" aria-expanded="false">
+            <img src="IMG/menu.png" alt="" aria-hidden="true">
+        </button>
     </header>
 
-    <main class="main-principal">
+    <div class="pagina-inicial" data-parallax-hero>
+        <div class="hero-background" data-parallax-layer="background" aria-hidden="true"></div>
 
-        <div class="main-hero">
-            <h1>Seu <strong>computador</strong>, do seu <strong>jeito.</strong> Para cada <strong>momento.</strong></h1>
-            <p>Crie modos personalizados para jogar, estudar, trabalhar, editar ou assistir. Cada modo adapta seus aplicativos, atalhos, interface e configurações para a tarefa que você está realizando.</p>
-            <section class="main-botoes">
-                <button class="botao-main">Baixar para Windows</button>
-                <button class="botao-main2">Conhecer Recursos</button>
-            </section>
-        </div>
+        <div class="conteudo-pagina-inicial">
+            <div class="sobreposicao-parallax" data-parallax-layer="content">
+                <h2>Seu próximo destino pode estar mais perto do que você imagina.</h2>
+                <h1>Explore o Brasil com a Aflora</h1>
+            </div>
 
-        <section class="sync-modes-animation" aria-label="Modos do Sync">
-            <div class="sync-modes-animation__stage">
-                <div class="sync-modes-animation__glow" aria-hidden="true"></div>
+            <div class="hero-content-front" data-parallax-layer="content">
+                <p class="descricao-pagina-inicial">Explore lugares incríveis por todo o Brasil, encontre destinos por região ou categoria e descubra novos caminhos para a sua próxima viagem.</p>
 
-                <span class="sync-modes-animation__connection sync-modes-animation__connection--top" style="--focus-delay: 0s" aria-hidden="true"></span>
-                <span class="sync-modes-animation__connection sync-modes-animation__connection--right" style="--focus-delay: -9s" aria-hidden="true"></span>
-                <span class="sync-modes-animation__connection sync-modes-animation__connection--left" style="--focus-delay: -6s" aria-hidden="true"></span>
-                <span class="sync-modes-animation__connection sync-modes-animation__connection--bottom" style="--focus-delay: -3s" aria-hidden="true"></span>
-
-                <div class="sync-modes-animation__center" aria-hidden="true">
-                    <span class="sync-modes-animation__logo-crop">
-                        <img src="IMG/Logo Sync.png" alt="">
-                    </span>
-                </div>
-
-                <div class="sync-modes-animation__mode sync-modes-animation__mode--top" style="--focus-delay: 0s; --float-delay: -1s">
-                    <span class="sync-modes-animation__mode-inner">
-                        <span class="sync-modes-animation__label">JOGAR</span>
-                        <span class="sync-modes-animation__dot" aria-hidden="true"></span>
-                    </span>
-                </div>
-
-                <div class="sync-modes-animation__mode sync-modes-animation__mode--right" style="--focus-delay: -9s; --float-delay: -3s">
-                    <span class="sync-modes-animation__mode-inner">
-                        <span class="sync-modes-animation__dot" aria-hidden="true"></span>
-                        <span class="sync-modes-animation__label">ESTUDAR</span>
-                    </span>
-                </div>
-
-                <div class="sync-modes-animation__mode sync-modes-animation__mode--left" style="--focus-delay: -6s; --float-delay: -5s">
-                    <span class="sync-modes-animation__mode-inner">
-                        <span class="sync-modes-animation__label">CRIAR</span>
-                        <span class="sync-modes-animation__dot" aria-hidden="true"></span>
-                    </span>
-                </div>
-
-                <div class="sync-modes-animation__mode sync-modes-animation__mode--bottom" style="--focus-delay: -3s; --float-delay: -2s">
-                    <span class="sync-modes-animation__mode-inner">
-                        <span class="sync-modes-animation__dot" aria-hidden="true"></span>
-                        <span class="sync-modes-animation__label">ASSISTIR</span>
-                    </span>
+                <div class="botoes-pagina-inicial">
+                    <button>Explorar Destinos</button>
+                    <button>Pontos Populares</button>
                 </div>
             </div>
-        </section>
         
-    </main>
+        </div>
 
-    <div>
-        <section>
-            
-        </section>
+        <div class="hero-foreground" data-parallax-layer="foreground" aria-hidden="true">
+            <img src="IMG/BackgroundFront.png" alt="">
+        </div>
     </div>
 
-    <main class="main-segundo">
-
-        <div class="main-segundo-hero">
-            <h1>O que é o Sync?</h1>
-            <p>O Sync é um software que permite criar modos personalizados para o seu computador,
-                adaptando a interface, aplicativos e configurações de acordo com a tarefa que você está realizando.
-                Com ele, você pode otimizar sua produtividade e aproveitar ao máximo cada momento.</p>
-        </div>
+    <script src="Script/script.js"></script>
 </body>
 </html>
