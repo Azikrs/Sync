@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" fill="none" role="img" aria-labelledby="brasil-pintado-title brasil-pintado-desc">
+  <title id="brasil-pintado-title">Brasil, feito de muitos gestos</title>
+  <desc id="brasil-pintado-desc">Uma bandeira brasileira abstrata, pintada com pinceladas de verde profundo, amarelo solar e azul, uma faixa de tinta branca e uma constelação livre.</desc>
+  <defs>
+    <!-- Two shared surface filters keep the drawing light enough for scrolling. -->
+    <filter id="brasil-pigment" x="-12%" y="-20%" width="124%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".024 .16" numOctaves="2" seed="17" result="grain"/>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="10" xChannelSelector="R" yChannelSelector="G" result="edge"/>
+      <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  .8 0 0 0 .69" result="dryness"/>
+      <feComposite in="edge" in2="dryness" operator="in"/>
+    </filter>
+    <filter id="brasil-impasto" x="-12%" y="-20%" width="124%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".035 .11" numOctaves="2" seed="31" result="grain"/>
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- A loaded flat brush; the ragged ends are deliberately left visible. -->
+  <g data-paint-layer="green" filter="url(#brasil-pigment)" stroke-linecap="square" stroke-linejoin="round">
+    <path data-paint-stroke="" data-paint-start=".02" data-paint-end=".31" pathLength="1" d="M192 219 C392 191 671 220 1019 183" stroke="#174F39" stroke-width="92"/>
+    <path data-paint-stroke="" data-paint-start=".06" data-paint-end=".36" pathLength="1" d="M1045 250 C836 284 438 226 150 289" stroke="#276747" stroke-width="89"/>
+    <path data-paint-stroke="" data-paint-start=".11" data-paint-end=".40" pathLength="1" d="M174 349 C416 313 747 353 1039 327" stroke="#1A6248" stroke-width="103"/>
+    <path data-paint-stroke="" data-paint-start=".15" data-paint-end=".44" pathLength="1" d="M1054 412 C776 381 433 433 134 399" stroke="#174B38" stroke-width="99"/>
+    <path data-paint-stroke="" data-paint-start=".18" data-paint-end=".48" pathLength="1" d="M153 463 C444 501 783 443 1027 491" stroke="#216044" stroke-width="98"/>
+    <path data-paint-stroke="" data-paint-start=".23" data-paint-end=".53" pathLength="1" d="M1020 554 C733 579 444 529 172 566" stroke="#1B553D" stroke-width="94"/>
+    <path data-paint-stroke="" data-paint-start=".27" data-paint-end=".55" pathLength="1" d="M254 628 C445 598 755 635 950 599" stroke="#2C6C49" stroke-width="36" opacity=".78"/>
+    <path data-paint-stroke="" data-paint-start=".12" data-paint-end=".35" pathLength="1" d="M153 235 C389 196 781 250 1046 205" stroke="#377A50" stroke-width="13" opacity=".74"/>
+    <path data-paint-stroke="" data-paint-start=".21" data-paint-end=".43" pathLength="1" d="M144 432 C380 444 660 416 914 435" stroke="#0B3A2C" stroke-width="18" opacity=".69"/>
+    <path data-paint-stroke="" data-paint-start=".35" data-paint-end=".56" pathLength="1" d="M1007 573 C791 612 481 558 193 599" stroke="#497D50" stroke-width="8" opacity=".62"/>
+  </g>
+
+  <!-- The diamond is drawn with crossing strokes, never a geometric fill. -->
+  <g data-paint-layer="gold" filter="url(#brasil-pigment)" stroke-linecap="square" stroke-linejoin="round">
+    <path data-paint-stroke="" data-paint-start=".25" data-paint-end=".54" pathLength="1" d="M305 397 C398 331 491 243 579 166 C692 254 797 328 907 400" stroke="#CE981E" stroke-width="49"/>
+    <path data-paint-stroke="" data-paint-start=".31" data-paint-end=".59" pathLength="1" d="M902 406 C797 490 685 568 607 632 C492 555 399 473 309 402" stroke="#E0AB24" stroke-width="57"/>
+    <path data-paint-stroke="" data-paint-start=".29" data-paint-end=".53" pathLength="1" d="M543 208 L627 267 L470 302 L711 340 L385 382 L826 421" stroke="#F0C441" stroke-width="64"/>
+    <path data-paint-stroke="" data-paint-start=".35" data-paint-end=".63" pathLength="1" d="M773 464 L435 430 L712 519 L528 504 L609 582" stroke="#EABB38" stroke-width="76"/>
+    <path data-paint-stroke="" data-paint-start=".39" data-paint-end=".66" pathLength="1" d="M373 409 C452 335 529 266 575 226" stroke="#F4D568" stroke-width="20" opacity=".79"/>
+    <path data-paint-stroke="" data-paint-start=".43" data-paint-end=".68" pathLength="1" d="M609 600 C710 526 785 477 864 409" stroke="#C58F23" stroke-width="21" opacity=".87"/>
+    <path data-paint-stroke="" data-paint-start=".46" data-paint-end=".70" pathLength="1" d="M618 230 C713 315 794 357 852 386" stroke="#FADE76" stroke-width="9" opacity=".68"/>
+  </g>
+
+  <!-- A circular gesture in ultramarine, with a visible second pass of paint. -->
+  <g data-paint-layer="blue" filter="url(#brasil-impasto)" stroke-linecap="round" stroke-linejoin="round">
+    <path data-paint-stroke="" data-paint-start=".47" data-paint-end=".67" pathLength="1" d="M563 377 C592 390 620 416 652 436" stroke="#184B80" stroke-width="72"/>
+    <path data-paint-stroke="" data-paint-start=".47" data-paint-end=".75" pathLength="1" d="M659 300 C599 263 514 289 481 350 C440 426 493 503 567 527 C651 554 723 493 732 418 C740 353 690 307 632 324 C580 314 530 348 530 403 C530 455 580 482 623 471 C674 456 690 414 659 386 C636 355 588 368 588 409" stroke="#184B80" stroke-width="75"/>
+    <path data-paint-stroke="" data-paint-start=".53" data-paint-end=".81" pathLength="1" d="M516 317 C552 285 618 280 664 310 C713 343 734 389 714 443" stroke="#285F9B" stroke-width="24" opacity=".35"/>
+    <path data-paint-stroke="" data-paint-start=".59" data-paint-end=".83" pathLength="1" d="M483 404 C485 477 557 527 619 510 C658 500 687 478 702 450" stroke="#123865" stroke-width="24" opacity=".3"/>
+    <path data-paint-stroke="" data-paint-start=".62" data-paint-end=".86" pathLength="1" d="M492 362 C511 312 565 292 595 294" stroke="#6095B0" stroke-width="3" opacity=".44"/>
+  </g>
+
+  <g data-paint-layer="detail" filter="url(#brasil-impasto)" stroke-linecap="round">
+    <path data-paint-stroke="" data-paint-start=".66" data-paint-end=".88" pathLength="1" d="M459 357 C536 342 650 379 732 441" stroke="#F6F0D8" stroke-width="27"/>
+    <path data-paint-stroke="" data-paint-start=".72" data-paint-end=".92" pathLength="1" d="M461 369 C549 349 656 390 728 445" stroke="#D7D7B9" stroke-width="4" opacity=".82"/>
+  </g>
+
+  <!-- A constellation suggested in paint, with no miniature lettering. -->
+  <g data-paint-layer="detail" fill="#F6F0D8">
+    <path data-paint-reveal="" data-paint-start=".74" data-paint-end=".84" d="m581 322 2.2 5.8 6.1.1-4.8 3.8 1.7 5.9-5.2-3.3-5.1 3.5 1.7-6-4.8-3.6 6.1-.4Z"/>
+    <path data-paint-reveal="" data-paint-start=".78" data-paint-end=".87" d="m591 425 2 5.8 6.3.4-5 3.7 1.5 6-4.8-3.5-5.2 3.3 1.8-5.9-4.8-3.9 6.1-.1Z"/>
+    <path data-paint-reveal="" data-paint-start=".79" data-paint-end=".89" d="m622 468 1.5 4.5 4.7.5-3.8 2.8 1.1 4.5-3.9-2.7-4 2.5 1.5-4.5-3.7-3.1 4.7.1Z"/>
+    <g data-paint-reveal="" data-paint-start=".79" data-paint-end=".93">
+      <circle cx="514" cy="400" r="2.7"/><circle cx="540" cy="448" r="2.1"/>
+      <circle cx="563" cy="413" r="2.6"/><circle cx="572" cy="474" r="2.7"/>
+      <circle cx="603" cy="484" r="2"/><circle cx="628" cy="439" r="2.8"/>
+      <circle cx="653" cy="456" r="2.4"/><circle cx="685" cy="425" r="2.1"/>
+      <circle cx="556" cy="488" r="1.7"/><circle cx="644" cy="491" r="1.6"/>
+      <circle cx="609" cy="406" r="1.8"/><circle cx="528" cy="473" r="1.4"/>
+    </g>
+  </g>
+
+  <!-- Dry bristles, the lift of the brush, and a few wandering drops. -->
+  <g data-paint-layer="detail" stroke-linecap="round" opacity=".72">
+    <path data-paint-stroke="" data-paint-start=".28" data-paint-end=".60" pathLength="1" d="M123 293 183 283 M120 302 192 291 M137 312 192 306 M1023 191 1094 183 M1037 202 1083 197" stroke="#276747" stroke-width="2"/>
+    <path data-paint-stroke="" data-paint-start=".34" data-paint-end=".64" pathLength="1" d="M172 605 221 600 M204 615 285 608 M948 598 998 592 M948 608 1007 602 M1029 466 1092 475" stroke="#39724B" stroke-width="2"/>
+    <path data-paint-stroke="" data-paint-start=".57" data-paint-end=".80" pathLength="1" d="M337 365 314 383 M345 371 323 390 M630 615 606 635 M637 619 619 634 M853 360 898 394" stroke="#E3B640" stroke-width="2"/>
+  </g>
+  <g data-paint-layer="detail" data-paint-reveal="" data-paint-start=".58" data-paint-end=".86" fill="#21563E" opacity=".85">
+    <ellipse cx="140" cy="204" rx="6" ry="2.5" transform="rotate(-24 140 204)"/>
+    <circle cx="112" cy="241" r="2"/><circle cx="1088" cy="336" r="2.3"/>
+    <ellipse cx="1072" cy="586" rx="4" ry="2" transform="rotate(28 1072 586)"/>
+    <circle cx="997" cy="649" r="2.2"/><circle cx="221" cy="654" r="1.6"/>
+    <path d="m172 645 9-2 7 1-12 3Z"/><path d="m1089 523 8 2-5 3-5-2Z"/>
+  </g>
+  <g data-paint-layer="detail" data-paint-reveal="" data-paint-start=".68" data-paint-end=".91" fill="#D4A237" opacity=".91">
+    <ellipse cx="574" cy="127" rx="3.5" ry="2.1" transform="rotate(-32 574 127)"/>
+    <circle cx="595" cy="117" r="1.3"/><circle cx="939" cy="431" r="2.5"/>
+    <ellipse cx="626" cy="672" rx="5" ry="1.9" transform="rotate(-30 626 672)"/>
+    <circle cx="607" cy="686" r="1.7"/><circle cx="278" cy="365" r="1.5"/>
+  </g>
+
+  <!-- One imperfect pencilled orbit echoes the hand-drawn destination button. -->
+  <g data-paint-layer="pencil" stroke-linecap="round" stroke-linejoin="round">
+    <path data-paint-stroke="" data-paint-start=".71" data-paint-end=".96" pathLength="1" d="M1030 144 C941 125 777 160 572 155 C384 150 191 169 125 238 C78 285 108 361 115 401 C126 477 90 575 182 624 C275 674 439 640 563 652 C747 670 983 673 1061 603 C1112 557 1074 489 1082 405 C1087 345 1115 262 1078 215" stroke="#173F31" stroke-width="1.6" opacity=".64"/>
+    <path data-paint-stroke="" data-paint-start=".82" data-paint-end="1" pathLength="1" d="M1030 647 C938 684 781 677 682 673 M124 482 C99 552 136 611 196 629 M302 400 C347 354 433 288 484 248 M667 597 C746 543 838 468 897 423" stroke="#183F31" stroke-width="1.1" opacity=".49"/>
+    <path data-paint-stroke="" data-paint-start=".84" data-paint-end="1" pathLength="1" d="M1114 564 C1124 576 1115 588 1108 583 C1101 578 1110 573 1119 584 C1127 594 1109 610 1094 618" stroke="#AA7A29" stroke-width="1.7" opacity=".88"/>
+  </g>
+</svg>

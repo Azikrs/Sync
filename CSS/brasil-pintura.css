@@ -1,0 +1,310 @@
+/* Uma tela de pintura: a rolagem conduz o gesto, não o tempo. */
+.brasil-pintura {
+    --scene-progress: 0;
+    --paper-opacity: 0;
+    --text-paint: 0;
+    --title-opacity: 1;
+    --title-y: 0px;
+    --title-scale: 1;
+    --art-opacity: 0;
+    --art-scale: 0.94;
+    --art-y: 18px;
+    --parallax-y: 0px;
+    --final-opacity: 0;
+    position: relative;
+    isolation: isolate;
+    display: flow-root;
+    width: 100%;
+    margin-top: clamp(96px, 12vw, 170px);
+    color: #194a37;
+    background: #f4f0e5;
+}
+
+/* O fundo pertence à seção inteira, incluindo o conteúdo depois da pintura. */
+.brasil-pintura__fundo {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: clip;
+    pointer-events: none;
+}
+
+.brasil-pintura__janela {
+    position: absolute;
+    inset: 0;
+    overflow: clip;
+}
+
+.brasil-pintura.has-parallax .brasil-pintura__janela {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+}
+
+.brasil-pintura__palco {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-content: center;
+    gap: 24px;
+    min-height: 100svh;
+    padding: 80px 0;
+    overflow: clip;
+}
+
+.brasil-pintura__paisagem,
+.brasil-pintura__papel {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.brasil-pintura.has-parallax .brasil-pintura__paisagem,
+.brasil-pintura.has-parallax .brasil-pintura__papel {
+    inset: -96px 0;
+    transform: translate3d(0, var(--parallax-y), 0);
+}
+
+.brasil-pintura__paisagem {
+    display: none;
+    background: linear-gradient(180deg, rgb(9 30 24 / 23%), rgb(9 30 24 / 45%)),
+                url("../IMG/Background.jpg") center 65% / cover;
+}
+
+.brasil-pintura__papel {
+    background: url("../IMG/Cristo.jpg") center / cover no-repeat;
+}
+
+.brasil-pintura__papel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.24;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.76' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23grain)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    mix-blend-mode: multiply;
+}
+
+.brasil-pintura__frase {
+    position: relative;
+    z-index: 3;
+    width: 92%;
+    margin-inline: auto;
+    text-align: center;
+}
+
+.pagina-inicial .brasil-pintura__titulo,
+.brasil-pintura__tinta {
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    font-family: var(--fonte-titulo);
+    font-size: clamp(3rem, 15vw, 15rem);
+    font-weight: 400;
+    line-height: 0.94;
+    letter-spacing: -0.045em;
+    white-space: nowrap;
+}
+
+.brasil-pintura__titulo > *,
+.brasil-pintura__tinta > * {
+    display: block;
+    padding-block: 0.045em;
+}
+
+.brasil-pintura__tinta {
+    display: none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.brasil-pintura__tinta > * {
+    --reveal: calc(var(--text-paint) * 115%);
+    color: transparent;
+    background: url("../IMG/brasil-pintado.svg") center 40% / 115% auto,
+                linear-gradient(110deg, #236247 15%, #d2a52b 52%, #255a84 76%, #20583c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    clip-path: polygon(0 0, var(--reveal) 0,
+        calc(var(--reveal) - 3%) 12%, calc(var(--reveal) - 1%) 26%,
+        calc(var(--reveal) - 5%) 40%, calc(var(--reveal) - 2%) 56%,
+        calc(var(--reveal) - 4%) 74%, var(--reveal) 87%,
+        calc(var(--reveal) - 2%) 100%, 0 100%);
+}
+
+.brasil-pintura__tinta > em {
+    --reveal: calc(var(--text-paint) * 148% - 33%);
+    background-position: center 67%;
+}
+
+.brasil-pintura__arte {
+    position: relative;
+    z-index: 2;
+    width: min(88vw, 1200px);
+    margin-inline: auto;
+    aspect-ratio: 3 / 2;
+}
+
+.brasil-pintura__arte > img,
+.brasil-pintura__arte > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.brasil-pintura__legenda,
+.brasil-pintura__convite,
+.brasil-pintura__assinatura {
+    display: none;
+    position: absolute;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.brasil-pintura__legenda {
+    top: calc(var(--header-height) + 32px);
+    left: 7vw;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: var(--paper-opacity);
+}
+
+.brasil-pintura__convite {
+    bottom: 5svh;
+    left: 50%;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: max-content;
+    color: #fffaf0;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    opacity: calc(1 - var(--paper-opacity));
+    transform: translateX(-50%);
+}
+
+.brasil-pintura__convite svg {
+    width: 22px;
+    height: 40px;
+    stroke: currentColor;
+    stroke-width: 1.1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.brasil-pintura__assinatura {
+    bottom: 5svh;
+    left: 50%;
+    width: max-content;
+    text-align: center;
+    opacity: var(--final-opacity);
+    transform: translateX(-50%);
+}
+
+.brasil-pintura__assinatura span {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.brasil-pintura__assinatura em {
+    font-family: var(--fonte-titulo);
+    font-size: clamp(2rem, 3.4vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1;
+}
+
+/* Reserva a cena durante o carregamento; sem JavaScript, a composição é estática. */
+.brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__sequencia {
+    height: 290svh;
+}
+
+.brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__palco {
+    position: sticky;
+    top: 0;
+    display: block;
+    height: 100svh;
+    min-height: 0;
+    padding: 0;
+}
+
+.brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__paisagem {
+    display: block;
+}
+
+.brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__papel {
+    opacity: var(--paper-opacity);
+}
+
+.brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__frase {
+    position: absolute;
+    top: 49%;
+    left: 4%;
+    margin: 0;
+    color: #fffaf0;
+    opacity: var(--title-opacity);
+    transform: translate3d(0, calc(-50% + var(--title-y)), 0) scale(var(--title-scale));
+}
+
+.brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__tinta {
+    display: block;
+}
+
+.brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__arte {
+    position: absolute;
+    top: 51%;
+    left: 50%;
+    width: min(88vw, 1200px, calc((100svh - var(--header-height) - 160px) * 1.5));
+    margin: 0;
+    opacity: var(--art-opacity);
+    transform: translate3d(-50%, calc(-50% + var(--art-y)), 0) scale(var(--art-scale));
+}
+
+.brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__legenda,
+.brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__assinatura {
+    display: block;
+}
+
+.brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__convite {
+    display: flex;
+}
+
+@media (max-width: 600px) {
+    .brasil-pintura__papel {
+        background-position: 60% center;
+    }
+
+    .brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__sequencia {
+        height: 250svh;
+    }
+
+    .brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__arte {
+        width: 108vw;
+    }
+
+    .brasil-pintura__legenda {
+        top: calc(var(--header-height) + 24px);
+        left: 6vw;
+        font-size: 9px;
+    }
+
+    .brasil-pintura__assinatura,
+    .brasil-pintura__convite {
+        bottom: 10svh;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .brasil-pintura:is(.is-loading, .is-ready) .brasil-pintura__sequencia {
+        height: auto;
+    }
+
+    .brasil-pintura .brasil-pintura__palco {
+        position: relative;
+    }
+}

@@ -3,9 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="CSS/brasil-pintura.css">
+  <link rel="stylesheet" href="CSS/destinos-flutuantes.css">
+  <script defer src="JS/vendor/lenis.min.js"></script>
+  <script defer src="JS/scroll.js"></script>
+  <script defer src="JS/brasil-pintura.js"></script>
   <title>Aflora | Explore o Brasil</title>
 </head>
 <body>
+  <header class="header-principal">
+    <nav>
+      <ul>
+        <li><a href="#">Destinos</a></li>
+        <li><a href="#">Categorias</a></li>
+        <li><a href="#">Sobre</a></li>
+      </ul>
+    </nav>
 
+    <img src="IMG/Aflora.png" alt="Aflora" width="100" style="filter: brightness(100);">
+
+    <div>
+      <button>Explorar Destinos</button>
+    </div>
+  </header>
+
+  <main class="pagina-inicial">
+
+    <section class="pagina-inicial-conteudo">
+      <div class="pagina-inicial-hero-top">
+        <h1>Um país.<br><em>Muitos Brasis.</em></h1>
+        <button class="botao-destino" type="button">
+          <svg class="botao-destino__rabisco" viewBox="0 0 300 90" aria-hidden="true" focusable="false">
+            <path class="botao-destino__contorno" d="M 266 20 C 224 5 146 5 76 13 C 31 18 7 31 16 50 C 27 75 108 84 192 77 C 250 73 291 57 281 37 C 276 28 263 23 247 19"/>
+            <path class="botao-destino__traco" pathLength="100" d="M 266 20 C 224 5 146 5 76 13 C 31 18 7 31 16 50 C 27 75 108 84 192 77 C 250 73 291 57 281 37 C 276 28 263 23 247 19"/>
+            <path class="botao-destino__traco botao-destino__traco--final" pathLength="100" d="M 43 68 C 96 84 196 85 255 67 C 279 59 291 46 279 32"/>
+          </svg>
+          <span class="botao-destino__texto">Ir para destinos</span>
+          <svg class="botao-destino__seta" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M 5 12 H 19 M 13 6 L 19 12 L 13 18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="pagina-inicial-hero-bottom">
+        <p>Do litoral às montanhas, das grandes cidades aos lugares quase intocados, o Brasil revela paisagens, culturas e experiências completamente diferentes entre si. Descubra destinos que mostram essa diversidade e encontre novos caminhos para conhecer o país de um jeito mais autêntico.</p>
+      </div>
+    </section>
+
+    <section class="brasil-pintura" aria-labelledby="brasil-pintura-titulo">
+      <div class="brasil-pintura__fundo" aria-hidden="true">
+        <div class="brasil-pintura__janela">
+          <div class="brasil-pintura__paisagem"></div>
+          <div class="brasil-pintura__papel"></div>
+        </div>
+      </div>
+
+      <div class="brasil-pintura__sequencia">
+        <div class="brasil-pintura__palco">
+          <div class="brasil-pintura__frase">
+            <h3 class="brasil-pintura__titulo" id="brasil-pintura-titulo">
+              <span>O Brasil começa</span>
+              <em>fora do óbvio.</em>
+            </h3>
+            <div class="brasil-pintura__tinta" aria-hidden="true">
+              <span>O Brasil começa</span>
+              <em>fora do óbvio.</em>
+            </div>
+          </div>
+
+          <div class="brasil-pintura__arte">
+            <img src="IMG/brasil-pintado.svg" width="1200" height="800"
+                 alt="Bandeira do Brasil reinterpretada em pinceladas de verde, amarelo e azul, com uma constelação e traços livres de lápis.">
+          </div>
+
+          <div class="brasil-pintura__convite" aria-hidden="true">
+            <span>Um novo olhar, a cada gesto.</span>
+            <svg viewBox="0 0 32 56" fill="none" focusable="false">
+              <path d="M16 3 C8 17 23 25 16 48 M7 40 Q15 44 16 50 Q20 44 26 40"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Adicione as próximas divs aqui, dentro de .brasil-pintura, para continuar sobre o mesmo fundo. -->
+      <div>
+        
+      </div>
+    </section>
+  </main>
 </body>
 </html>
