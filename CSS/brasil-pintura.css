@@ -72,7 +72,7 @@
 }
 
 .brasil-pintura__papel {
-    background: url("../IMG/Cristo.jpg") center / cover no-repeat;
+    background: url("../IMG/Cristo.jpg") center top / cover no-repeat;
 }
 
 .brasil-pintura__papel::after {
