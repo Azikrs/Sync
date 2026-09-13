@@ -53,55 +53,11 @@ body {
     font-family: var(--fonte-texto);
     font-weight: 400;
     line-height: 1.5;
+    overflow-x: hidden;
 }
 
 button {
     font-family: inherit;
-}
-
-.header-principal {
-    position: fixed;
-    inset: 0 0 auto;
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 14px 12.5vw;
-    z-index: 100;
-}
-
-.header-principal > img {
-    flex-shrink: 0;
-}
-
-.header-principal nav ul{
-    display: flex;
-    list-style: none;
-    gap: 30px;
-}
-
-.header-principal nav ul li a {
-    text-decoration: none;
-    color: #ffffff;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-}
-
-.header-principal button {
-    border: 1px solid #ffffff;
-    color: #fff;
-    background-color: #00000000;
-    padding: 10px 20px;
-    border-radius: 100px;
-}
-
-.header-principal nav,
-.header-principal > div {
-    display: flex;
-    width: 400px;
-    justify-content: center;
 }
 
 .pagina-inicial {
@@ -141,6 +97,12 @@ button {
 .pagina-inicial-hero-top h1 em {
     font-style: italic;
     font-weight: inherit;
+}
+
+/* As larguras do efeito de texto também precisam caber na tela do celular. */
+.pagina-inicial-hero-top h1 > span {
+    max-width: 100%;
+    white-space: nowrap;
 }
 
 .botao-destino {
@@ -257,21 +219,6 @@ button {
     }
 }
 
-@media (max-width: 900px) {
-    .header-principal {
-        padding-inline: 5vw;
-    }
-
-    .header-principal nav,
-    .header-principal > div {
-        width: auto;
-    }
-
-    .header-principal nav ul {
-        gap: 20px;
-    }
-}
-
 @media (max-width: 600px) {
     .botao-destino {
         width: min(78vw, 20rem);
@@ -281,36 +228,6 @@ button {
         font-size: clamp(1.65rem, 6.5vw, 1.9rem);
     }
 
-    :root {
-        --header-height: 108px;
-    }
-
-    .header-principal {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 12px;
-        padding: 12px 6vw;
-    }
-
-    .header-principal > img {
-        order: 1;
-        width: 88px;
-    }
-
-    .header-principal > div {
-        order: 2;
-        justify-self: end;
-    }
-
-    .header-principal nav {
-        order: 3;
-        grid-column: 1 / -1;
-    }
-
-    .header-principal button {
-        font-size: 12px;
-        padding: 9px 14px;
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -318,7 +235,6 @@ button {
         scroll-behavior: auto;
     }
 
-    .header-principal,
     .botao-destino *,
     .botao-destino:is(:hover, :focus-visible) * {
         transition: none;

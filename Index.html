@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="CSS/header.css">
   <link rel="stylesheet" href="CSS/brasil-pintura.css">
   <link rel="stylesheet" href="CSS/efeitos-texto.css">
   <link rel="stylesheet" href="CSS/destinos.css">
   <script defer src="JS/vendor/lenis.min.js"></script>
   <script defer src="JS/scroll.js"></script>
+  <script defer src="JS/header.js"></script>
   <script defer src="JS/pigmento.js"></script>
   <script defer src="JS/brasil-pintura.js"></script>
   <script defer src="JS/efeitos-texto.js"></script>
@@ -17,29 +19,49 @@
 </head>
 <body>
   <header class="header-principal">
-    <nav>
+    <button class="header-menu" type="button" aria-expanded="false" aria-controls="navegacao-principal" aria-label="Abrir menu">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path class="header-menu__traco header-menu__traco--primeiro" d="M5 12 Q16 10 27 12"/>
+        <path class="header-menu__traco header-menu__traco--segundo" d="M5 21 Q16 23 27 21"/>
+      </svg>
+    </button>
+
+    <nav class="header-nav" id="navegacao-principal" aria-label="Navegação principal" data-lenis-prevent>
       <ul>
-        <li><a href="#">Destinos</a></li>
+        <li><a href="Index.html#inicio" aria-current="page">Início</a></li>
+        <li><a href="#destinos">Destinos</a></li>
         <li><a href="#">Categorias</a></li>
         <li><a href="#">Sobre</a></li>
       </ul>
     </nav>
 
-    <a href="#">
-      <img src="IMG/Aflora.png" alt="Aflora" width="100" style="filter: brightness(100);">
+    <a class="header-marca" href="#inicio" aria-label="Aflora — início">
+      <span class="header-marca__imagem">
+        <img src="IMG/Aflora.png" alt="Aflora" width="100">
+      </span>
     </a>
 
-    <div>
-      <button>Explorar Destinos</button>
-    </div>
+    <a class="header-explorar" href="#destinos" aria-label="Explorar destinos">
+      <svg class="header-explorar__pintura" viewBox="0 0 260 68" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path class="header-explorar__base" d="M24 12 C60 4 189 3 226 10 C247 14 257 25 253 39 C249 56 218 61 181 61 L68 63 C37 64 9 59 6 44 C2 29 8 19 24 12Z"/>
+        <path class="header-explorar__borda" d="M24 12 C60 4 189 3 226 10 C247 14 257 25 253 39 C249 56 218 61 181 61 L68 63 C37 64 9 59 6 44 C2 29 8 19 24 12Z"/>
+        <path class="header-explorar__gesto" pathLength="100" d="M235 13 C209 1 104 5 55 9 C26 11 6 20 7 37 C6 54 25 61 54 62 C119 67 206 62 238 52 C252 47 258 32 246 22"/>
+        <path class="header-explorar__tinta" pathLength="100" d="M27 51 C49 60 88 56 111 57 S170 59 190 54"/>
+        <path class="header-explorar__agua" pathLength="100" d="M97 60 C148 60 205 60 231 48"/>
+      </svg>
+      <span class="header-explorar__texto">Explorar<span class="header-explorar__complemento"> destinos</span></span>
+      <svg class="header-explorar__seta" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path d="M6 25 C17 24 14 10 26 7 M17 6 Q22 8 26 7 Q24 12 26 17"/>
+      </svg>
+    </a>
   </header>
 
   <main class="pagina-inicial">
 
-    <section class="pagina-inicial-conteudo">
+    <section class="pagina-inicial-conteudo" id="inicio">
       <div class="pagina-inicial-hero-top">
-        <h1><span data-revelar style=" --revelar-cor: #fff; width: 21vw; --revelar-duracao: 700ms">Um país.</span>
-            <span data-revelar style="--revelar-atraso: 300ms; --revelar-cor: #fff; width: 34.5vw;"><em>Muitos Brasis.</em></span></h1>
+        <h1><span data-revelar style=" --revelar-cor: #fff; width: 400px; --revelar-duracao: 700ms">Um país.</span>
+            <span data-revelar style="--revelar-atraso: 300ms; --revelar-cor: #fff; width: 670px;"><em>Muitos Brasis.</em></span></h1>
         <button class="botao-destino" type="button">
           <svg class="botao-destino__rabisco" viewBox="0 0 300 90" aria-hidden="true" focusable="false">
             <path class="botao-destino__contorno" d="M 266 20 C 224 5 146 5 76 13 C 31 18 7 31 16 50 C 27 75 108 84 192 77 C 250 73 291 57 281 37 C 276 28 263 23 247 19"/>
@@ -58,7 +80,7 @@
       </div>
     </section>
 
-    <section class="brasil-pintura" aria-labelledby="brasil-pintura-titulo">
+    <section class="brasil-pintura" id="destinos" aria-labelledby="brasil-pintura-titulo">
       <div class="brasil-pintura__fundo" aria-hidden="true">
         <div class="brasil-pintura__janela">
           <div class="brasil-pintura__paisagem"></div>

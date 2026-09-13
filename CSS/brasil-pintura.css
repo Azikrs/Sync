@@ -4,9 +4,9 @@
     --parallax-velocidade: 2;
     /* Travessias em alturas de tela, dentro do intervalo livre entre os textos. */
     --transicao-antes: 1.15;
-    --transicao-depois: 0.38;
-    --bandeira-sopro: 0.9;
-    --bandeira-acompanhar: 0px;
+    --transicao-depois: 1;
+    --bandeira-sopro: 1.6;
+    --bandeira-acompanhar: 40px;
     /* Quanto maior a distância de rolagem, mais lenta fica a pintura. */
     --pintura-rolagem: 500svh;
     --pintura-rolagem-celular: 340svh;
@@ -125,7 +125,7 @@
 .brasil-pintura__cataratas {
     display: none;
     background: linear-gradient(180deg, rgb(9 30 34 / 12%), rgb(9 30 34 / 25%)),
-                url("../IMG/FozIguacu.jpg") center 30% / cover no-repeat;
+                url("../IMG/FozIguacu.jpg") center 0% / cover no-repeat;
     opacity: var(--foz-opacity);
 }
 
