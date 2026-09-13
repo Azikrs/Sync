@@ -1,14 +1,18 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="CSS/style.css">
   <link rel="stylesheet" href="CSS/brasil-pintura.css">
-  <link rel="stylesheet" href="CSS/destinos-flutuantes.css">
+  <link rel="stylesheet" href="CSS/efeitos-texto.css">
+  <link rel="stylesheet" href="CSS/destinos.css">
   <script defer src="JS/vendor/lenis.min.js"></script>
   <script defer src="JS/scroll.js"></script>
+  <script defer src="JS/pigmento.js"></script>
   <script defer src="JS/brasil-pintura.js"></script>
+  <script defer src="JS/efeitos-texto.js"></script>
+  <script defer src="JS/destinos.js"></script>
   <title>Aflora | Explore o Brasil</title>
 </head>
 <body>
@@ -21,7 +25,9 @@
       </ul>
     </nav>
 
-    <img src="IMG/Aflora.png" alt="Aflora" width="100" style="filter: brightness(100);">
+    <a href="#">
+      <img src="IMG/Aflora.png" alt="Aflora" width="100" style="filter: brightness(100);">
+    </a>
 
     <div>
       <button>Explorar Destinos</button>
@@ -32,7 +38,8 @@
 
     <section class="pagina-inicial-conteudo">
       <div class="pagina-inicial-hero-top">
-        <h1>Um país.<br><em>Muitos Brasis.</em></h1>
+        <h1><span data-revelar style=" --revelar-cor: #fff; width: 21vw; --revelar-duracao: 700ms">Um país.</span>
+            <span data-revelar style="--revelar-atraso: 300ms; --revelar-cor: #fff; width: 34.5vw;"><em>Muitos Brasis.</em></span></h1>
         <button class="botao-destino" type="button">
           <svg class="botao-destino__rabisco" viewBox="0 0 300 90" aria-hidden="true" focusable="false">
             <path class="botao-destino__contorno" d="M 266 20 C 224 5 146 5 76 13 C 31 18 7 31 16 50 C 27 75 108 84 192 77 C 250 73 291 57 281 37 C 276 28 263 23 247 19"/>
@@ -47,7 +54,7 @@
       </div>
 
       <div class="pagina-inicial-hero-bottom">
-        <p>Do litoral às montanhas, das grandes cidades aos lugares quase intocados, o Brasil revela paisagens, culturas e experiências completamente diferentes entre si. Descubra destinos que mostram essa diversidade e encontre novos caminhos para conhecer o país de um jeito mais autêntico.</p>
+        <p data-surgir>Do litoral às montanhas, das grandes cidades aos lugares quase intocados, o Brasil revela paisagens, culturas e experiências completamente diferentes entre si. Descubra destinos que mostram essa diversidade e encontre novos caminhos para conhecer o país de um jeito mais autêntico.</p>
       </div>
     </section>
 
@@ -56,6 +63,14 @@
         <div class="brasil-pintura__janela">
           <div class="brasil-pintura__paisagem"></div>
           <div class="brasil-pintura__papel"></div>
+          <div class="brasil-pintura__troca" data-paisagem="foz">
+            <div class="brasil-pintura__cataratas"></div>
+          </div>
+          <div class="brasil-pintura__troca" data-paisagem="lencois">
+            <div class="brasil-pintura__lencois"></div>
+          </div>
+          <div class="brasil-pintura__aguada"></div>
+          <div class="brasil-pintura__luz"></div>
         </div>
       </div>
 
@@ -86,12 +101,87 @@
         </div>
       </div>
 
-      <!-- Adicione as próximas divs aqui, dentro de .brasil-pintura, para continuar sobre o mesmo fundo. -->
-      <div class="cristo-redentor-pagina">
-        <div class="cristo-redentor-titulo">
-          
+      <!-- Nos links “Quero ir”, substitua href="#" pelo endereço da página do destino. -->
+      <section class="destino cristo-redentor-pagina" id="cristo-redentor" data-destino="cristo" aria-labelledby="cristo-redentor-titulo">
+        <div class="destino__janela">
+          <div class="destino__conteudo">
+            <h4 class="destino__chamada">
+              <span data-destino-revelar>Entre a cidade e</span>
+              <span data-destino-revelar>o céu.</span>
+            </h4>
+            <div class="destino__leitura">
+              <p data-destino-revelar>No alto do Corcovado, o Cristo Redentor se ergue sobre uma paisagem onde montanhas, floresta e mar dividem o mesmo horizonte. Um dos lugares em que o Rio de Janeiro revela, de uma só vez, a dimensão e o contraste de sua paisagem.</p>
+              <div class="destino__acao" data-destino-revelar>
+                <a class="destino__link" href="#" aria-label="Quero ir ao Cristo Redentor">
+                  <span>Quero ir</span>
+                  <svg viewBox="0 0 76 64" fill="none" aria-hidden="true" focusable="false">
+                    <path class="destino__orbita" pathLength="100" d="M63 16C49 2 18 6 9 24S18 59 39 56S73 36 65 20C59 9 37 4 22 12M18 51C34 63 60 52 66 40"/>
+                    <path class="destino__seta" d="M25 34C33 32 42 32 51 31M42 23L51 31L43 40"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h2 class="destino__titulo cristo-redentor-titulo" id="cristo-redentor-titulo">
+              <span class="cristo-redentor-titulo-top" data-destino-revelar>Cristo</span>
+              <em class="cristo-redentor-titulo-bottom" data-destino-revelar>Redentor.</em>
+            </h2>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section class="destino destino--invertido foz-iguacu-pagina" id="foz-iguacu" data-destino="foz" aria-labelledby="foz-iguacu-titulo">
+        <div class="destino__janela">
+          <div class="destino__conteudo foz-iguacu-conteudo">
+            <h4 class="destino__chamada">
+              <span data-destino-revelar>Uma paisagem em</span>
+              <span data-destino-revelar>queda constante.</span>
+            </h4>
+            <div class="destino__leitura">
+              <p data-destino-revelar>Em Foz do Iguaçu, centenas de quedas avançam entre a floresta e revelam uma paisagem moldada pela força da natureza. Um lugar em que escala, som e movimento fazem parte da experiência tanto quanto a própria vista.</p>
+              <div class="destino__acao" data-destino-revelar>
+                <a class="destino__link" href="#" aria-label="Quero ir às Cataratas do Iguaçu">
+                  <span>Quero ir</span>
+                  <svg viewBox="0 0 76 64" fill="none" aria-hidden="true" focusable="false">
+                    <path class="destino__orbita" pathLength="100" d="M63 16C49 2 18 6 9 24S18 59 39 56S73 36 65 20C59 9 37 4 22 12M18 51C34 63 60 52 66 40"/>
+                    <path class="destino__seta" d="M25 34C33 32 42 32 51 31M42 23L51 31L43 40"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h2 class="destino__titulo foz-iguacu-titulo" id="foz-iguacu-titulo">
+              <span data-destino-revelar>Cataratas do</span>
+              <em data-destino-revelar>Iguaçu.</em>
+            </h2>
+          </div>
+        </div>
+      </section>
+
+      <section class="destino lencois-maranhenses-pagina" id="lencois-maranhenses" data-destino="lencois" aria-labelledby="lencois-maranhenses-titulo">
+        <div class="destino__janela">
+          <div class="destino__conteudo">
+            <h4 class="destino__chamada">
+              <span data-destino-revelar>Onde o deserto</span>
+              <span data-destino-revelar>encontra a água.</span>
+            </h4>
+            <div class="destino__leitura">
+              <p data-destino-revelar>Nos Lençóis Maranhenses, dunas brancas e lagoas temporárias desenham uma paisagem que parece mudar a cada estação. Um lugar de contrastes, escala e silêncio, diferente de qualquer outro cenário do país.</p>
+              <div class="destino__acao" data-destino-revelar>
+                <a class="destino__link" href="#" aria-label="Quero ir aos Lençóis Maranhenses">
+                  <span>Quero ir</span>
+                  <svg viewBox="0 0 76 64" fill="none" aria-hidden="true" focusable="false">
+                    <path class="destino__orbita" pathLength="100" d="M63 16C49 2 18 6 9 24S18 59 39 56S73 36 65 20C59 9 37 4 22 12M18 51C34 63 60 52 66 40"/>
+                    <path class="destino__seta" d="M25 34C33 32 42 32 51 31M42 23L51 31L43 40"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <h2 class="destino__titulo lencois-maranhenses-titulo" id="lencois-maranhenses-titulo">
+              <span data-destino-revelar>Lençóis</span>
+              <em data-destino-revelar>Maranhenses.</em>
+            </h2>
+          </div>
+        </div>
+      </section>
     </section>
   </main>
 </body>

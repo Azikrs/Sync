@@ -1,0 +1,203 @@
+/* O ritmo dos textos é independente do parallax das fotografias. */
+.destino {
+    --destino-texto-velocidade: 0.5; /* 0.4 = mais lento; 0.7 = mais rápido. */
+    --destino-vista-entrada: 0.55; /* Tempo de vista livre, em alturas de tela. */
+    --destino-vista-saida: 0.55;
+    --destino-foto: url("../IMG/Cristo.jpg");
+    position: relative;
+    width: 100%;
+    color: #fffaf0;
+    background: linear-gradient(145deg, rgb(7 24 22 / 48%), rgb(9 22 27 / 64%)),
+                var(--destino-foto) center top / cover no-repeat;
+}
+
+.foz-iguacu-pagina { --destino-foto: url("../IMG/FozIguacu.jpg"); }
+.lencois-maranhenses-pagina { --destino-foto: url("../IMG/LencoisMaranhenses.jpg"); }
+
+.destino__conteudo {
+    position: relative;
+    padding: 4svh 5vw 6svh;
+}
+
+.destino__chamada {
+    margin: 0;
+    font-family: var(--fonte-titulo);
+    font-size: 12vw;
+    font-weight: 400;
+    line-height: 0.84;
+    letter-spacing: -0.04em;
+}
+
+.destino__chamada > * { display: block; }
+.destino--invertido .destino__chamada { text-align: right; }
+
+.destino__leitura {
+    width: min(42vw, 660px);
+    margin: clamp(32px, 5vw, 80px) 0 clamp(44px, 6vw, 96px) auto;
+    text-align: right;
+}
+
+.destino--invertido .destino__leitura {
+    margin-right: auto;
+    margin-left: 0;
+    text-align: left;
+}
+
+.destino__leitura p {
+    margin: 0;
+    font-family: var(--fonte-titulo);
+    font-size: clamp(24px, 3vw, 48px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.022em;
+    text-wrap: pretty;
+}
+
+.destino__titulo {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0 0.4vw;
+    font-family: var(--fonte-titulo);
+    font-size: 22vw;
+    font-weight: 400;
+    font-synthesis: none;
+    line-height: 0.82;
+    letter-spacing: -0.045em;
+}
+
+.destino__titulo > * {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    font-weight: inherit;
+    white-space: nowrap;
+}
+
+.destino__titulo > :last-child { align-self: flex-end; }
+.lencois-maranhenses-titulo { font-size: 18.5vw; }
+
+/* Um convite no fim da leitura, com uma órbita imperfeita de grafite. */
+.destino__acao { margin-top: clamp(22px, 3vw, 40px); }
+.destino__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    min-height: 60px;
+    color: inherit;
+    text-decoration: none;
+    font: 500 13px / 1.4 var(--fonte-texto);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.destino__link > span { position: relative; }
+.destino__link > span::after {
+    content: "";
+    position: absolute;
+    inset: auto -2px -7px;
+    height: 5px;
+    background: #e0cb8b;
+    clip-path: polygon(0 65%, 21% 30%, 45% 42%, 72% 5%, 100% 32%, 83% 55%, 57% 50%, 29% 80%, 0 90%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 650ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.destino__link svg { width: 76px; height: 64px; overflow: visible; }
+.destino__orbita {
+    stroke: #e0cb8b;
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: calc(100 - var(--destino-revelacao, 1) * 68);
+    opacity: 0.65;
+    transform-origin: center;
+    transition: stroke-dashoffset 950ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                transform 950ms ease, opacity 600ms ease;
+}
+
+.destino__seta {
+    stroke: currentColor;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 650ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.destino__link:is(:hover, :focus-visible) > span::after { transform: scaleX(1); }
+.destino__link:is(:hover, :focus-visible) .destino__orbita {
+    stroke-dashoffset: 0;
+    transform: rotate(-8deg);
+    opacity: 1;
+}
+.destino__link:is(:hover, :focus-visible) .destino__seta { transform: translate(3px, -2px); }
+.destino__link:focus-visible { outline: 1px solid #e0cb8b; outline-offset: 8px; border-radius: 2px; }
+
+/* A moldura fica na tela; apenas a folha de texto percorre o caminho mais devagar. */
+.destino.is-immersive { height: var(--destino-altura); background: none; }
+.cristo-redentor-pagina.is-immersive {
+    margin-top: calc(-1 * var(--destino-sobreposicao, 0px));
+}
+.destino.is-immersive .destino__janela {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: clip;
+    mask-image: linear-gradient(to bottom,
+        transparent calc(var(--header-height) - 8px),
+        #000 calc(var(--header-height) + 56px),
+        #000 calc(100% - 20px), transparent);
+}
+.destino.is-immersive .destino__conteudo {
+    transform: translate3d(0, var(--destino-y, 100svh), 0);
+    will-change: transform;
+}
+.destino.is-immersive [data-destino-revelar] {
+    opacity: var(--destino-revelacao, 0);
+    translate: 0 calc((1 - var(--destino-revelacao, 0)) * 28px);
+}
+.destino.is-immersive [data-destino-revelar]:focus-within {
+    opacity: 1;
+    translate: none;
+}
+
+/* A sombra tem profundidade e temperatura: a fotografia continua opaca e nítida. */
+.brasil-pintura__luz {
+    display: none;
+    position: absolute;
+    inset: -12%;
+    z-index: 2;
+    pointer-events: none;
+    opacity: var(--leitura-luz, 0);
+    background:
+        radial-gradient(ellipse at var(--leitura-x, 65%) var(--leitura-y, 65%),
+            rgb(5 20 19 / 72%) 0%, rgb(8 24 25 / 48%) 40%, rgb(8 21 26 / 12%) 75%),
+        linear-gradient(158deg, rgb(9 24 23 / 42%) 8%, rgb(12 27 28 / 22%) 50%, rgb(7 17 25 / 56%) 90%);
+}
+.brasil-pintura.has-parallax .brasil-pintura__luz { display: block; }
+.brasil-pintura__luz::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(123deg, transparent 18%, rgb(226 204 146 / 7%) 38%, transparent 56%);
+    transform: translate3d(calc(var(--leitura-gesto, 0) * -4%), calc(var(--leitura-gesto, 0) * 3%), 0);
+}
+
+@media (max-width: 700px) {
+    .destino { --destino-texto-velocidade: 0.6; }
+    .destino__conteudo { padding-inline: 6vw; }
+    .destino__chamada { font-size: 12.2vw; line-height: 0.94; }
+    .destino__leitura { width: min(84%, 440px); margin-top: 40px; margin-bottom: 52px; }
+    .destino__leitura p { font-size: clamp(23px, 5.8vw, 32px); line-height: 1.17; }
+    .destino__titulo { font-size: 21.4vw; line-height: 0.9; }
+    .lencois-maranhenses-titulo { font-size: 18vw; }
+    .destino__link { font-size: 12px; gap: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .destino { padding-block: 10svh; }
+    .destino__link *, .destino__link > span::after { transition: none; }
+}

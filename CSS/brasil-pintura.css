@@ -1,5 +1,16 @@
 /* Uma tela de pintura: a rolagem conduz o gesto, não o tempo. */
 .brasil-pintura {
+    /* Parallax: 1 = padrão, 0.5 = metade, 2 = dobro, 0 = sem deslocamento da foto. */
+    --parallax-velocidade: 2;
+    /* Travessias em alturas de tela, dentro do intervalo livre entre os textos. */
+    --transicao-antes: 1.15;
+    --transicao-depois: 0.38;
+    --bandeira-sopro: 0.9;
+    --bandeira-acompanhar: 0px;
+    /* Quanto maior a distância de rolagem, mais lenta fica a pintura. */
+    --pintura-rolagem: 500svh;
+    --pintura-rolagem-celular: 340svh;
+    --parallax-margem: 96px;
     --scene-progress: 0;
     --paper-opacity: 0;
     --text-paint: 0;
@@ -9,7 +20,20 @@
     --art-opacity: 0;
     --art-scale: 0.94;
     --art-y: 18px;
+    --art-x: 0px;
+    --art-difusao: 0px;
+    --gesto-opacity: 0;
+    --gesto-tamanho: 0.001;
+    --gesto-avanco: 0;
+    --art-rotate: 0deg;
     --parallax-y: 0px;
+    --foz-opacity: 0;
+    --foz-entrada-y: 24px;
+    --foz-escala: 1.035;
+    --foz-nevoa: 0;
+    --lencois-opacity: 0;
+    --lencois-entrada-y: 24px;
+    --lencois-escala: 1.035;
     --final-opacity: 0;
     position: relative;
     isolation: isolate;
@@ -35,6 +59,24 @@
     overflow: clip;
 }
 
+.brasil-pintura__troca,
+.brasil-pintura__aguada {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+}
+
+.brasil-pintura__aguada {
+    opacity: 0;
+    background: linear-gradient(135deg, #75aca7, #d2dec3);
+}
+
+.brasil-pintura__aguada[data-corrente="lencois"] {
+    background: linear-gradient(160deg, #a8c5c3, #efdab9 70%, #dfc29a);
+}
+
 .brasil-pintura.has-parallax .brasil-pintura__janela {
     position: sticky;
     top: 0;
@@ -53,15 +95,19 @@
 }
 
 .brasil-pintura__paisagem,
-.brasil-pintura__papel {
+.brasil-pintura__papel,
+.brasil-pintura__cataratas,
+.brasil-pintura__lencois {
     position: absolute;
     inset: 0;
     pointer-events: none;
 }
 
 .brasil-pintura.has-parallax .brasil-pintura__paisagem,
-.brasil-pintura.has-parallax .brasil-pintura__papel {
-    inset: -96px 0;
+.brasil-pintura.has-parallax .brasil-pintura__papel,
+.brasil-pintura.has-parallax .brasil-pintura__cataratas,
+.brasil-pintura.has-parallax .brasil-pintura__lencois {
+    inset: calc(-1 * var(--parallax-margem)) 0;
     transform: translate3d(0, var(--parallax-y), 0);
 }
 
@@ -73,6 +119,50 @@
 
 .brasil-pintura__papel {
     background: url("../IMG/Cristo.jpg") center top / cover no-repeat;
+}
+
+/* A imagem seguinte entra sobre a anterior; o fundo não troca de tamanho ou posição. */
+.brasil-pintura__cataratas {
+    display: none;
+    background: linear-gradient(180deg, rgb(9 30 34 / 12%), rgb(9 30 34 / 25%)),
+                url("../IMG/FozIguacu.jpg") center 30% / cover no-repeat;
+    opacity: var(--foz-opacity);
+}
+
+.brasil-pintura.has-parallax .brasil-pintura__cataratas {
+    display: block;
+    transform: translate3d(0, calc(var(--parallax-y) + var(--foz-entrada-y)), 0) scale(var(--foz-escala));
+}
+
+.brasil-pintura__lencois {
+    display: none;
+    background: url("../IMG/LencoisMaranhenses.jpg") center center / cover no-repeat;
+    opacity: var(--lencois-opacity);
+}
+
+/* Uma sombra alta e difusa mantém a navegação legível sobre o céu claro. */
+.brasil-pintura__lencois::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+        rgb(10 27 30 / 55%),
+        rgb(10 27 30 / 38%) calc(var(--parallax-margem) + var(--header-height)),
+        transparent calc(var(--parallax-margem) + var(--header-height) + 140px));
+}
+
+.brasil-pintura.has-parallax .brasil-pintura__lencois {
+    display: block;
+    transform: translate3d(0, calc(var(--parallax-y) + var(--lencois-entrada-y)), 0) scale(var(--lencois-escala));
+}
+
+.brasil-pintura.has-parallax .brasil-pintura__janela::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(165deg, rgb(225 238 227 / 0%) 10%, #e1eee3 75%, #d5e7e6);
+    opacity: var(--foz-nevoa);
 }
 
 .brasil-pintura__papel::after {
@@ -221,7 +311,7 @@
 
 /* Reserva a cena durante o carregamento; sem JavaScript, a composição é estática. */
 .brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__sequencia {
-    height: 290svh;
+    height: max(110svh, var(--pintura-rolagem));
 }
 
 .brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__palco {
@@ -262,7 +352,31 @@
     width: min(88vw, 1200px, calc((100svh - var(--header-height) - 160px) * 1.5));
     margin: 0;
     opacity: var(--art-opacity);
-    transform: translate3d(-50%, calc(-50% + var(--art-y)), 0) scale(var(--art-scale));
+    transform: translate3d(calc(-50% + var(--art-x)), calc(-50% + var(--art-y)), 0) scale(var(--art-scale)) rotate(var(--art-rotate));
+}
+
+/* A saída acompanha a imagem sem acrescentar altura à página. */
+.brasil-pintura.is-ready:not(.is-reduced-motion) .brasil-pintura__palco {
+    transform: translate3d(0, var(--bandeira-acompanhar), 0);
+}
+
+.brasil-pintura__original {
+    mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    filter: blur(var(--art-difusao));
+}
+
+.brasil-pintura__arte > .brasil-pintura__gesto {
+    position: absolute;
+    inset: 0;
+    opacity: var(--gesto-opacity);
+    pointer-events: none;
+    filter: blur(0.65px);
+}
+
+.brasil-pintura__gesto path {
+    stroke-dasharray: var(--gesto-tamanho) 1;
+    stroke-dashoffset: var(--gesto-avanco);
 }
 
 .brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__legenda,
@@ -280,7 +394,7 @@
     }
 
     .brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__sequencia {
-        height: 250svh;
+        height: max(110svh, var(--pintura-rolagem-celular));
     }
 
     .brasil-pintura:is(.is-loading, .is-ready):not(.is-reduced-motion) .brasil-pintura__arte {

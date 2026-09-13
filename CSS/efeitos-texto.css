@@ -1,0 +1,139 @@
+/* Uso: data-revelar no texto. Personalize estas variáveis no próprio elemento. */
+:where([data-revelar]) {
+    --revelar-cor: #b8cc37;
+    --revelar-duracao: 1200ms;
+    --revelar-atraso: 0ms;
+}
+
+.efeito-texto-posicionado {
+    position: relative;
+}
+
+.revelar-em-linha {
+    display: inline-block;
+    max-width: 100%;
+}
+
+/* Uso: data-surgir. Uma subida curta com opacidade, sem alterar o fluxo do texto. */
+:where([data-surgir]) {
+    --surgir-inicio: 80; /* Altura da tela em %: um número menor faz esperar mais. */
+    --surgir-distancia: 36px;
+    --surgir-duracao: 700ms;
+    --surgir-atraso: 150ms;
+}
+
+.surgir-preparado {
+    opacity: 0;
+    translate: 0 var(--surgir-distancia);
+}
+
+.surgir-preparado.surgir-ativo {
+    animation: texto-surgir var(--surgir-duracao) cubic-bezier(0.22, 0.61, 0.36, 1)
+        var(--surgir-atraso) both;
+}
+
+@keyframes texto-surgir {
+    from { opacity: 0; translate: 0 var(--surgir-distancia); }
+    to { opacity: 1; translate: 0 0; }
+}
+
+.surgir-preparado:focus-within {
+    animation: none;
+    opacity: 1;
+    translate: none;
+}
+
+/* Só ocultamos visualmente depois que o JavaScript está pronto. */
+.revelar-preparado {
+    clip-path: inset(-0.18em 100% -0.18em 0);
+}
+
+.revelar-preparado::after {
+    content: "";
+    position: absolute;
+    inset: -0.12em -0.05em;
+    z-index: 2;
+    background: var(--revelar-cor);
+    pointer-events: none;
+    transform: scaleX(1);
+    transform-origin: right center;
+}
+
+.revelar-preparado.revelar-ativo {
+    animation: revelar-abertura var(--revelar-duracao) cubic-bezier(0.76, 0, 0.24, 1)
+        var(--revelar-atraso) both;
+}
+
+.revelar-preparado.revelar-ativo::after {
+    animation: revelar-barra var(--revelar-duracao) cubic-bezier(0.76, 0, 0.24, 1)
+        var(--revelar-atraso) both;
+}
+
+@keyframes revelar-abertura {
+    from { clip-path: inset(-0.18em 100% -0.18em 0); }
+    45%, to { clip-path: inset(-0.18em -0.05em); }
+}
+
+@keyframes revelar-barra {
+    from, 48% { transform: scaleX(1); }
+    to { transform: scaleX(0); }
+}
+
+/* Uma cópia apenas visual mantém o texto original branco sob a tinta. */
+.texto-brasil__tinta {
+    --pincel-x: calc(var(--pintura-progresso, 0) * 120%);
+    position: absolute;
+    inset: -0.18em 0;
+    padding-block: 0.18em;
+    pointer-events: none;
+    color: transparent;
+    background-image: url("../IMG/brasil-pintado.svg"),
+        linear-gradient(110deg, #146747 12%, #e0b837 45%, #e6c956 56%, #24659b 77%, #197552);
+    background-position: center 40%, center;
+    background-size: 115% auto, 100% 100%;
+    background-origin: content-box;
+    -webkit-background-clip: text;
+    background-clip: text;
+    clip-path: polygon(0 -20%, var(--pincel-x) -20%,
+        calc(var(--pincel-x) - 3%) 4%, calc(var(--pincel-x) - 1%) 17%,
+        calc(var(--pincel-x) - 7%) 31%, calc(var(--pincel-x) - 2%) 43%,
+        calc(var(--pincel-x) - 6%) 58%, calc(var(--pincel-x) - 1%) 72%,
+        calc(var(--pincel-x) - 5%) 86%, var(--pincel-x) 120%, 0 120%);
+}
+
+.cristo-redentor-titulo-bottom > .texto-brasil__tinta {
+    background-position: center 67%, center;
+}
+
+/* Teclado e preferência por movimento reduzido sempre têm acesso imediato. */
+.revelar-preparado:focus-within {
+    animation: none;
+    clip-path: none;
+}
+
+.revelar-preparado:focus-within::after {
+    display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .surgir-preparado,
+    .surgir-preparado.surgir-ativo {
+        animation: none;
+        opacity: 1;
+        translate: none;
+    }
+
+    .revelar-preparado,
+    .revelar-preparado.revelar-ativo {
+        animation: none;
+        clip-path: none;
+    }
+
+    .revelar-preparado::after {
+        display: none;
+    }
+
+    .texto-brasil__tinta {
+        clip-path: none;
+    }
+}
