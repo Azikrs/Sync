@@ -147,8 +147,8 @@
     height: 100svh;
     overflow: clip;
     mask-image: linear-gradient(to bottom,
-        transparent calc(var(--header-height) - 0px),
-        #000 calc(var(--header-height) + 50px),
+        transparent calc(var(--header-height) - 3px),
+        #000 calc(var(--header-height) + 60px),
         #000 calc(40% - 10px), transparent);
 }
 .destino.is-immersive .destino__conteudo {
