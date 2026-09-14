@@ -69,25 +69,6 @@
         });
     }
 
-    // Trocar src/srcset basta: o recorte da tinta acompanha a imagem carregada.
-    const logo = header.querySelector('.header-marca__imagem img');
-    if (logo) {
-        const ink = document.createElement('span');
-        ink.className = 'header-marca__tinta';
-        ink.setAttribute('aria-hidden', 'true');
-        logo.after(ink);
-        const clearMask = () => ink.style.removeProperty('--marca-mascara');
-        const syncMask = () => {
-            if (!logo.complete || !logo.naturalWidth) { clearMask(); return; }
-            ink.style.setProperty('--marca-mascara', `url(${JSON.stringify(logo.currentSrc || logo.src)})`);
-        };
-        logo.addEventListener('load', syncMask);
-        logo.addEventListener('error', clearMask);
-        new MutationObserver(() => { clearMask(); syncMask(); })
-            .observe(logo, { attributes: true, attributeFilter: ['src', 'srcset', 'sizes'] });
-        syncMask();
-    }
-
     window.addEventListener('popstate', updateCurrentPage);
 
     window.addEventListener('pageshow', () => setOpen(false));

@@ -36,6 +36,7 @@
 }
 
 html {
+    background: #000;
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--header-height) + 24px);
 }
@@ -50,10 +51,11 @@ html.lenis body {
 }
 
 body {
+    background: #000;
     font-family: var(--fonte-texto);
     font-weight: 400;
     line-height: 1.5;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 button {
@@ -97,6 +99,26 @@ button {
 .pagina-inicial-hero-top h1 em {
     font-style: italic;
     font-weight: inherit;
+}
+
+/* A palavra continua sendo texto; o canvas só deposita pigmentos sobre as letras. */
+.texto-pincelado {
+    --pincel-entrada: 1350ms;
+    --pincel-duracao: 2000ms;
+    --pincel-pausa: 700ms;
+    --pincel-verde: #0d4fca;
+    --pincel-bege: #e6b000;
+    --pincel-petroleo: #006b00;
+    position: relative;
+    display: inline-block;
+    vertical-align: baseline;
+}
+.texto-pincelado__tinta {
+    position: absolute;
+    inset: -0.12em;
+    width: calc(100% + 0.24em);
+    height: calc(100% + 0.24em);
+    pointer-events: none;
 }
 
 /* As larguras do efeito de texto também precisam caber na tela do celular. */
@@ -269,4 +291,42 @@ button {
 .pagina-inicial h3 em {
     font-style: italic;
     font-weight: inherit;
+}
+
+/* Um único alinhamento e espaçamentos proporcionais na abertura do celular. */
+@media (max-width: 700px) {
+    .pagina-inicial-conteudo {
+        width: 100%;
+        height: auto;
+        min-height: 92svh;
+        padding: calc(var(--header-height) + clamp(44px, 9svh, 80px)) 7vw 48px;
+        gap: clamp(42px, 7svh, 64px);
+    }
+    .pagina-inicial-hero-top {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .pagina-inicial-hero-top h1 {
+        font-size: clamp(2.8rem, 12.7vw, 5.4rem);
+        line-height: 1.02;
+    }
+    .pagina-inicial-hero-top .botao-destino {
+        width: min(100%, 310px);
+        max-width: 100%;
+        margin-top: 28px;
+        font-size: clamp(1.65rem, 6.8vw, 2rem);
+    }
+    .pagina-inicial-hero-bottom {
+        width: 100%;
+        margin: 0;
+        justify-content: flex-start;
+    }
+    .pagina-inicial-hero-bottom p {
+        width: 100%;
+        max-width: 38ch;
+        font-size: clamp(15px, 4vw, 18px);
+        letter-spacing: -0.025em;
+        line-height: 1.65;
+    }
 }

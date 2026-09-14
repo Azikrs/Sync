@@ -60,17 +60,31 @@
     // Apenas a máscara é rasterizada em baixa resolução; as fotos mantêm a nitidez original.
     const feather = kind === 'bandeira' ? 0.13 : 0.105;
     const cache = new Map();
+    let lastPainted = -1;
+    function updateMask(progress) {
+      const step = Math.round(clamp(progress) * 240);
+      if (step === lastPainted) return step;
+      const threshold = (step / 240) * (1 + 2 * feather) - feather;
+      for (let i = 0; i < field.length; i++) {
+        const amount = smooth((threshold - field[i] + feather) / (2 * feather));
+        pixels.data[i * 4 + 3] = Math.round(255 * (kind === 'bandeira' ? 1 - amount : amount));
+        if (edgePixels) edgePixels.data[i * 4 + 3] = Math.round(255 * 4 * amount * (1 - amount));
+      }
+      ctx.putImageData(pixels, 0, 0);
+      if (edgeCtx) edgeCtx.putImageData(edgePixels, 0, 0);
+      lastPainted = step;
+      return step;
+    }
     return {
+      // Desenha diretamente, sem codificar/decodificar PNG a cada frame no celular.
+      drawTo(target, progress) {
+        updateMask(progress);
+        target.drawImage(canvas, 0, 0, target.canvas.width, target.canvas.height);
+      },
       render(progress) {
         const step = Math.round(clamp(progress) * 240);
         if (cache.has(step)) return cache.get(step);
-        const threshold = (step / 240) * (1 + 2 * feather) - feather;
-        for (let i = 0; i < field.length; i++) {
-          const amount = smooth((threshold - field[i] + feather) / (2 * feather));
-          pixels.data[i * 4 + 3] = Math.round(255 * (kind === 'bandeira' ? 1 - amount : amount));
-          if (edgePixels) edgePixels.data[i * 4 + 3] = Math.round(255 * 4 * amount * (1 - amount));
-        }
-        ctx.putImageData(pixels, 0, 0);
+        updateMask(progress);
         const result = { mask: `url("${canvas.toDataURL()}")`, edge: '' };
         if (edgeCtx) {
           edgeCtx.putImageData(edgePixels, 0, 0);

@@ -80,6 +80,7 @@
 /* Um convite no fim da leitura, com uma órbita imperfeita de grafite. */
 .destino__acao { margin-top: clamp(22px, 3vw, 40px); }
 .destino__link {
+    --convite-curva: cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -91,9 +92,13 @@
     letter-spacing: 0.09em;
     text-transform: uppercase;
     -webkit-tap-highlight-color: transparent;
+    transition: color 700ms ease;
 }
 
-.destino__link > span { position: relative; }
+.destino__link > span {
+    position: relative;
+    transition: transform 900ms var(--convite-curva);
+}
 .destino__link > span::after {
     content: "";
     position: absolute;
@@ -103,20 +108,24 @@
     clip-path: polygon(0 65%, 21% 30%, 45% 42%, 72% 5%, 100% 32%, 83% 55%, 57% 50%, 29% 80%, 0 90%);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 650ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: transform 1100ms var(--convite-curva);
 }
 
-.destino__link svg { width: 76px; height: 64px; overflow: visible; }
+.destino__link svg {
+    width: 76px; height: 64px; overflow: visible;
+    transition: transform 1100ms var(--convite-curva);
+}
 .destino__orbita {
     stroke: #e0cb8b;
     stroke-width: 1;
     stroke-linecap: round;
     stroke-dasharray: 100;
-    stroke-dashoffset: calc(100 - var(--destino-revelacao, 1) * 68);
+    stroke-dashoffset: 32;
     opacity: 0.65;
     transform-origin: center;
-    transition: stroke-dashoffset 950ms cubic-bezier(0.22, 0.61, 0.36, 1),
-                transform 950ms ease, opacity 600ms ease;
+    transform: rotate(4deg);
+    transition: stroke-dashoffset 1400ms var(--convite-curva),
+                transform 1400ms var(--convite-curva), opacity 800ms ease;
 }
 
 .destino__seta {
@@ -124,17 +133,25 @@
     stroke-width: 1.4;
     stroke-linecap: round;
     stroke-linejoin: round;
-    transition: transform 650ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: transform 1100ms var(--convite-curva);
 }
 
 .destino__link:is(:hover, :focus-visible) > span::after { transform: scaleX(1); }
+.destino__link:is(:hover, :focus-visible) > span { transform: translateX(-2px); }
+.destino__link:is(:hover, :focus-visible) svg { transform: translateX(4px); }
 .destino__link:is(:hover, :focus-visible) .destino__orbita {
     stroke-dashoffset: 0;
-    transform: rotate(-8deg);
+    transform: rotate(-5deg);
     opacity: 1;
 }
 .destino__link:is(:hover, :focus-visible) .destino__seta { transform: translate(3px, -2px); }
 .destino__link:focus-visible { outline: 1px solid #e0cb8b; outline-offset: 8px; border-radius: 2px; }
+
+@media (hover: none) {
+    .destino__orbita { stroke-dashoffset: 14; }
+    .destino__link:active svg { transform: translateX(3px) scale(0.97); }
+    .destino__link:active .destino__orbita { stroke-dashoffset: 0; transform: rotate(-5deg); }
+}
 
 /* A moldura fica na tela; apenas a folha de texto percorre o caminho mais devagar. */
 .destino.is-immersive { height: var(--destino-altura); background: none; }
@@ -186,6 +203,58 @@
     transform: translate3d(calc(var(--leitura-gesto, 0) * -4%), calc(var(--leitura-gesto, 0) * 3%), 0);
 }
 
+/* Um fio de rio conduz o olhar: areia nas margens, verde na água, ouro em movimento. */
+.destino-corrente {
+    --corrente-presenca: 0;
+    display: none;
+    position: absolute;
+    z-index: 3;
+    top: calc(100svh - 90px - max(28px, env(safe-area-inset-bottom)));
+    left: 5vw;
+    align-items: center;
+    gap: 12px;
+    width: max-content;
+    max-width: 88vw;
+    color: #eadbbb;
+    pointer-events: none;
+    opacity: var(--corrente-presenca);
+    transform: translate3d(0, calc((1 - var(--corrente-presenca)) * 12px), 0);
+}
+.brasil-pintura.has-parallax .destino-corrente { display: flex; }
+.destino-corrente__desenho { width: 64px; height: 90px; overflow: visible; }
+.destino-corrente__margem { stroke: #7e9a77; stroke-width: 4; stroke-linecap: round; opacity: 0.42; }
+.destino-corrente__margem--areia { stroke: #ccb67b; stroke-width: 0.8; opacity: 0.65; }
+.destino-corrente__leito { stroke: #d6c391; stroke-width: 0.8; opacity: 0.3; }
+.destino-corrente__fluxo {
+    stroke: #e0cb8b;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-dasharray: 22 78;
+    animation: corrente-fluir 4200ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+}
+.destino-corrente__gota {
+    fill: #ead69e;
+    offset-path: path('M31 4 C14 20 57 27 40 45 S16 66 32 85');
+    animation: corrente-percorrer 4200ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+}
+.destino-corrente__fluxo, .destino-corrente__gota { animation-play-state: paused; }
+.destino-corrente.is-visible :is(.destino-corrente__fluxo, .destino-corrente__gota) { animation-play-state: running; }
+.destino-corrente__legenda { display: grid; gap: 5px; text-shadow: 0 2px 14px rgb(3 19 16 / 65%); }
+.destino-corrente__legenda em { font: italic 26px / 1 var(--fonte-titulo); }
+.destino-corrente__legenda > span { font: 400 9px / 1.4 var(--fonte-texto); letter-spacing: 0.12em; text-transform: uppercase; }
+@keyframes corrente-fluir {
+    0% { stroke-dashoffset: 24; opacity: 0; }
+    18% { opacity: 0.9; }
+    78% { opacity: 0.9; }
+    100% { stroke-dashoffset: -100; opacity: 0; }
+}
+@keyframes corrente-percorrer {
+    0% { offset-distance: 0%; opacity: 0; }
+    18% { opacity: 1; }
+    78% { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+}
+
 @media (max-width: 700px) {
     .destino { --destino-texto-velocidade: 0.6; }
     .destino__conteudo { padding-inline: 6vw; }
@@ -195,9 +264,19 @@
     .destino__titulo { font-size: 21.4vw; line-height: 0.9; }
     .lencois-maranhenses-titulo { font-size: 18vw; }
     .destino__link { font-size: 12px; gap: 12px; }
+    .destino-corrente {
+        left: 6vw;
+        gap: 8px;
+        top: calc(100svh - 70px - max(24px, env(safe-area-inset-bottom)));
+    }
+    .destino-corrente__desenho { width: 48px; height: 68px; }
+    .destino-corrente__legenda em { font-size: 23px; }
+    .destino-corrente__legenda > span { font-size: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .destino { padding-block: 10svh; }
     .destino__link *, .destino__link > span::after { transition: none; }
+    .brasil-pintura .destino-corrente { display: none; }
+    .destino-corrente * { animation: none; }
 }

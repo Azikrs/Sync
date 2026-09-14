@@ -5,12 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="CSS/style.css">
   <link rel="stylesheet" href="CSS/header.css">
+  <link rel="stylesheet" href="CSS/hero-jardim.css">
   <link rel="stylesheet" href="CSS/brasil-pintura.css">
   <link rel="stylesheet" href="CSS/efeitos-texto.css">
   <link rel="stylesheet" href="CSS/destinos.css">
   <script defer src="JS/vendor/lenis.min.js"></script>
   <script defer src="JS/scroll.js"></script>
   <script defer src="JS/header.js"></script>
+  <script defer src="JS/hero-jardim.js"></script>
+  <script defer src="JS/texto-pincelado.js"></script>
   <script defer src="JS/pigmento.js"></script>
   <script defer src="JS/brasil-pintura.js"></script>
   <script defer src="JS/efeitos-texto.js"></script>
@@ -59,9 +62,10 @@
   <main class="pagina-inicial">
 
     <section class="pagina-inicial-conteudo" id="inicio">
+      <div class="hero-jardim" aria-hidden="true"><canvas></canvas></div>
       <div class="pagina-inicial-hero-top">
         <h1><span data-revelar style=" --revelar-cor: #fff; width: 400px; --revelar-duracao: 700ms">Um país.</span>
-            <span data-revelar style="--revelar-atraso: 300ms; --revelar-cor: #fff; width: 670px;"><em>Muitos Brasis.</em></span></h1>
+            <span data-revelar style="--revelar-atraso: 300ms; --revelar-cor: #fff; width: 670px;"><em>Muitos <span class="texto-pincelado" data-pincelado>Brasis</span>.</em></span></h1>
         <button class="botao-destino" type="button">
           <svg class="botao-destino__rabisco" viewBox="0 0 300 90" aria-hidden="true" focusable="false">
             <path class="botao-destino__contorno" d="M 266 20 C 224 5 146 5 76 13 C 31 18 7 31 16 50 C 27 75 108 84 192 77 C 250 73 291 57 281 37 C 276 28 263 23 247 19"/>

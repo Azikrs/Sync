@@ -8,6 +8,7 @@
   })).filter((item) => item.window && item.content);
   if (!scene || !destinations.length) return;
   const lighting = scene.querySelector('.brasil-pintura__luz');
+  const current = scene.querySelector('.destino-corrente');
   const painting = scene.querySelector('.brasil-pintura__sequencia');
   const paintingStage = painting?.querySelector('.brasil-pintura__palco');
 
@@ -76,6 +77,7 @@
     let light = 0;
     let gesture = 0;
     let lightX = 65;
+    let invitation = 0;
     destinations.forEach((item) => {
       const progress = clamp(scrollY - item.top - item.before, 0, item.distance);
       // O primeiro capítulo já ocupa a tela quando os últimos pigmentos se desfazem.
@@ -90,6 +92,9 @@
       });
       const shade = (item.handoff ? entrance : smooth((item.viewport - y) / (item.viewport * 0.48)))
         * smooth((item.height + y) / (item.viewport * 0.6));
+      // Nasce com a luz de leitura e se recolhe quando a pessoa já segue o percurso.
+      invitation = Math.max(invitation, smooth(shade / 0.5)
+        * (1 - smooth((progress / item.distance - 0.22) / 0.18)));
       if (shade > light) {
         light = shade;
         gesture = progress / item.distance;
@@ -100,6 +105,8 @@
     lighting?.style.setProperty('--leitura-x', `${lightX}%`);
     lighting?.style.setProperty('--leitura-y', `${75 - gesture * 50}%`);
     lighting?.style.setProperty('--leitura-gesto', gesture.toFixed(4));
+    current?.style.setProperty('--corrente-presenca', invitation.toFixed(4));
+    current?.classList.toggle('is-visible', invitation > 0.01 && !document.hidden);
   }
 
   function schedule(measureAgain = false) {
@@ -111,6 +118,8 @@
     destinations.forEach(({ element }) => element.classList.toggle('is-immersive', !motion.matches));
     if (motion.matches) {
       lighting?.style.setProperty('--leitura-luz', '0');
+      current?.style.setProperty('--corrente-presenca', '0');
+      current?.classList.remove('is-visible');
       scene.dispatchEvent(new Event('destinos:medidos'));
     } else {
       // Reserva o percurso antes de o navegador restaurar o scroll de uma recarga.
@@ -144,6 +153,7 @@
   window.addEventListener('scroll', () => schedule(), { passive: true });
   window.addEventListener('resize', () => schedule(true), { passive: true });
   window.addEventListener('pageshow', () => schedule(true));
+  document.addEventListener('visibilitychange', () => schedule());
   motion.addEventListener('change', updateMotion);
   if ('ResizeObserver' in window) {
     const observer = new ResizeObserver(() => schedule(true));

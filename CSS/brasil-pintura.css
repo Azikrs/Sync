@@ -80,7 +80,9 @@
 .brasil-pintura.has-parallax .brasil-pintura__janela {
     position: sticky;
     top: 0;
-    height: 100svh;
+    /* A foto cobre também a área liberada quando a barra do navegador recolhe.
+       lvh é estável durante o gesto e evita recalcular o enquadramento. */
+    height: 100lvh;
 }
 
 .brasil-pintura__palco {
@@ -364,6 +366,22 @@
     mask-size: 100% 100%;
     mask-repeat: no-repeat;
     filter: blur(var(--art-difusao));
+}
+
+.brasil-pintura__saida {
+    display: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+.saida-em-canvas .brasil-pintura__original { visibility: hidden; }
+.saida-em-canvas .brasil-pintura__saida { display: block; }
+
+@media (pointer: coarse) {
+    .brasil-pintura__original,
+    .brasil-pintura__arte > .brasil-pintura__gesto { filter: none; }
 }
 
 .brasil-pintura__arte > .brasil-pintura__gesto {

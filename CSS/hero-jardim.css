@@ -1,0 +1,42 @@
+.pagina-inicial-conteudo {
+    position: relative;
+    isolation: isolate;
+    --jardim-luz: 1;
+    --jardim-relevo: 1;
+  --jardim-ritmo: 1;
+  --jardim-agua: 1;
+}
+.hero-jardim {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: calc(-1 * clamp(96px, 12vw, 170px));
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    overflow: hidden;
+    pointer-events: none;
+    background: #0c1b18 url('../IMG/jardim-desktop.webp') center / 100% 100% no-repeat;
+    mask-image: linear-gradient(#000 0%, #000 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(#000 0%, #000 80%, transparent 100%);
+}
+.hero-jardim canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 900ms ease;
+}
+.hero-jardim.is-ready canvas { opacity: 1; }
+.hero-jardim::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgb(0 5 4 / 15%), transparent 20%, transparent 72%, #000);
+}
+@media (max-width: 700px) {
+    .hero-jardim { background-image: url('../IMG/jardim-mobile.webp'); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-jardim canvas { transition: none; }
+}

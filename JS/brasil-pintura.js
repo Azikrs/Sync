@@ -7,6 +7,7 @@
   const fallback = artwork?.querySelector('img');
 
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const touch = window.matchMedia('(pointer: coarse)');
   const clamp = (value) => Math.max(0, Math.min(1, value));
   const between = (value, start, end) => clamp((value - start) / (end - start));
   const smooth = (value) => value * value * (3 - 2 * value);
@@ -36,7 +37,7 @@
       if (needsMeasure) {
         top = scene.getBoundingClientRect().top + window.scrollY;
         height = scene.offsetHeight;
-        viewport = window.innerHeight;
+        viewport = scene.querySelector('.brasil-pintura__janela').clientHeight || window.innerHeight;
         const style = getComputedStyle(scene);
         const before = Number.parseFloat(style.getPropertyValue('--transicao-antes')) || 1.15;
         const after = Number.parseFloat(style.getPropertyValue('--transicao-depois')) || 0.38;
@@ -195,9 +196,51 @@
         gesture.appendChild(path);
       });
       artwork.appendChild(gesture);
+      const exitCanvas = document.createElement('canvas');
+      exitCanvas.className = 'brasil-pintura__saida';
+      exitCanvas.setAttribute('aria-hidden', 'true');
+      const exitContext = exitCanvas.getContext('2d');
+      artwork.insertBefore(exitCanvas, gesture);
+      let snapshot = null;
+      let snapshotPending = false;
+      function prepareSnapshot() {
+        if (!touch.matches || snapshot || snapshotPending || !exitContext) return;
+        snapshotPending = true;
+        const copy = svg.cloneNode(true);
+        copy.setAttribute('width', '1200');
+        copy.setAttribute('height', '800');
+        copy.style.removeProperty('mask-image');
+        copy.style.filter = 'none';
+        copy.querySelectorAll('[data-paint-stroke], [data-paint-reveal]').forEach(node => {
+          node.style.strokeDashoffset = '0';
+          node.style.opacity = node.getAttribute('opacity') || '1';
+        });
+        copy.querySelectorAll('[data-paint-layer]').forEach((node, i) => node.setAttribute('transform', layers[i].transform));
+        const url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(copy)], { type: 'image/svg+xml' }));
+        const image = new Image();
+        image.onload = () => {
+          exitCanvas.width = Math.min(1200, Math.max(720, Math.ceil(artwork.clientWidth * Math.min(devicePixelRatio, 2))));
+          exitCanvas.height = Math.round(exitCanvas.width / 1.5);
+          const frozen = document.createElement('canvas');
+          frozen.width = exitCanvas.width;
+          frozen.height = exitCanvas.height;
+          const frozenContext = frozen.getContext('2d');
+          if (frozenContext) {
+            frozenContext.drawImage(image, 0, 0, frozen.width, frozen.height);
+            snapshot = frozen;
+          }
+          URL.revokeObjectURL(url);
+          snapshotPending = false;
+          lastDeparture = -1;
+          schedule();
+        };
+        image.onerror = () => { URL.revokeObjectURL(url); snapshotPending = false; };
+        image.src = url;
+      }
       let pigment = null;
       whenIdle(() => {
         if (!motion.matches) pigment ||= window.AfloraPigmento?.create('bandeira', 1.5);
+        prepareSnapshot();
       });
 
       let frame = 0;
@@ -207,6 +250,7 @@
       let distance = 1;
       let lastProgress = -1;
       let lastDeparture = -1;
+      let lastDrawing = -1;
       let release = 0;
 
       const variable = (name, value) => scene.style.setProperty(name, value);
@@ -227,7 +271,7 @@
         variable('--art-x', `${18 * departure}px`);
         variable('--art-y', `${reduced ? 0 : 18 - 30 * progress - 26 * departure}px`);
         variable('--art-rotate', `${-0.7 * departure}deg`);
-        variable('--art-difusao', `${1.8 * departure}px`);
+        variable('--art-difusao', `${touch.matches ? 0 : 1.8 * departure}px`);
         variable('--final-opacity', reduced ? '0' : (smooth(between(progress, 0.76, 0.92)) * (1 - departure)).toFixed(4));
 
         const head = smooth(between(departure, 0.08, 0.78));
@@ -235,21 +279,36 @@
         variable('--gesto-tamanho', Math.max(0.001, head - tail).toFixed(4));
         variable('--gesto-avanco', (-tail).toFixed(4));
         variable('--gesto-opacity', (Math.sin(between(departure, 0.05, 0.96) * Math.PI) * 0.3).toFixed(4));
-        if (departure > 0 && departure < 1) {
+        const canvasExit = touch.matches && snapshot && exitContext && departure > 0;
+        artwork.classList.toggle('saida-em-canvas', Boolean(canvasExit));
+        if (canvasExit) {
+          pigment ||= window.AfloraPigmento?.create('bandeira', 1.5);
+          exitContext.clearRect(0, 0, exitCanvas.width, exitCanvas.height);
+          exitContext.drawImage(snapshot, 0, 0, exitCanvas.width, exitCanvas.height);
+          if (pigment) {
+            exitContext.globalCompositeOperation = 'destination-in';
+            pigment.drawTo(exitContext, departure);
+            exitContext.globalCompositeOperation = 'source-over';
+          }
+          svg.style.removeProperty('mask-image');
+        } else if (departure > 0 && departure < 1 && !touch.matches) {
           pigment ||= window.AfloraPigmento?.create('bandeira', 1.5);
           if (pigment) svg.style.maskImage = pigment.render(departure).mask;
         } else svg.style.removeProperty('mask-image');
 
-        strokes.forEach(({ element, start, end, opacity }) => {
-          const amount = smooth(between(drawing, start, end));
-          element.style.strokeDashoffset = (1 - amount).toFixed(4);
-          // Evita que a ponta quadrada do pincel apareça antes do primeiro gesto.
-          element.style.opacity = (opacity * between(amount, 0, 0.025)).toFixed(4);
-        });
-        reveals.forEach(({ element, start, end, opacity }) => {
-          element.style.opacity = (opacity * smooth(between(drawing, start, end))).toFixed(4);
-        });
-        layers.forEach(({ element, depth: layerDepth, transform }) => {
+        if (drawing !== lastDrawing) {
+          strokes.forEach(({ element, start, end, opacity }) => {
+            const amount = smooth(between(drawing, start, end));
+            element.style.strokeDashoffset = (1 - amount).toFixed(4);
+            // Evita que a ponta quadrada do pincel apareça antes do primeiro gesto.
+            element.style.opacity = (opacity * between(amount, 0, 0.025)).toFixed(4);
+          });
+          reveals.forEach(({ element, start, end, opacity }) => {
+            element.style.opacity = (opacity * smooth(between(drawing, start, end))).toFixed(4);
+          });
+          lastDrawing = drawing;
+        }
+        if (!touch.matches) layers.forEach(({ element, depth: layerDepth, transform }) => {
           const drift = reduced ? 0 : ((progress - 0.5) * 12 + departure * 18) * layerDepth;
           element.setAttribute('transform', `${transform} translate(${drift * 0.3} ${drift})`.trim());
         });
@@ -293,6 +352,7 @@
       window.addEventListener('scroll', () => schedule(), { passive: true });
       window.addEventListener('resize', () => schedule(true), { passive: true });
       motion.addEventListener('change', updateMotion);
+      touch.addEventListener('change', () => { prepareSnapshot(); updateMotion(); });
 
       if ('ResizeObserver' in window) {
         const resize = new ResizeObserver(() => schedule(true));
