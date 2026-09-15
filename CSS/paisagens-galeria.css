@@ -1,0 +1,206 @@
+@font-face {
+    font-family: "Caveat Aflora";
+    src: url("../fonts/caveat-semibold.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+}
+
+/* A seção seguinte (.natureza) permanece no fluxo, depois do percurso desta galeria. */
+.paisagens-conteudo.paisagens-galeria {
+    --galeria-percurso: 220svh;
+    display: block;
+    position: relative;
+    height: 100svh;
+    text-align: center;
+    isolation: isolate;
+}
+.paisagens-galeria.is-galeria-pronta { height: calc(100svh + var(--galeria-percurso)); }
+.paisagens-palco {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100svh;
+    display: grid;
+    place-items: center;
+    isolation: isolate;
+}
+.paisagens-grade {
+    position: absolute;
+    width: min(78vw, calc((100svh - 84px) * 1.3333));
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(7px, .7vw, 14px);
+    perspective: 1100px;
+    perspective-origin: 50% 50%;
+    z-index: 1;
+}
+.paisagens-cartao {
+    min-width: 0;
+    aspect-ratio: 1;
+    position: relative;
+    opacity: 0;
+    transform-origin: 50% 50%;
+    backface-visibility: hidden;
+}
+.paisagens-galeria.is-em-cena .paisagens-cartao { will-change: transform, opacity; }
+.paisagens-foto {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: #0e1510;
+    cursor: pointer;
+    overflow: hidden;
+    outline-offset: 5px;
+}
+.paisagens-foto img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: .82;
+    transform: scale(1.015);
+    transition: opacity 550ms ease, transform 900ms cubic-bezier(.2,.65,.2,1);
+}
+.paisagens-foto:is(:hover, :focus-visible, [aria-expanded="true"]) img { opacity: 1; transform: scale(1.055); }
+.paisagens-foto:focus-visible { outline: 2px solid #e1c365; }
+.paisagens-foto.is-sem-imagem::after { content: 'Paisagem brasileira'; position: absolute; inset: 0; display: grid; place-items: center; color: #e0d7bc; font: 18px/1.2 var(--fonte-titulo); }
+.paisagens-palco > h1 {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    pointer-events: none;
+    padding: 0 3vw;
+}
+.paisagens-palco > h1.is-lente-pronta { color: transparent; }
+.paisagens-lente {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+}
+.paisagens-convite {
+    position: absolute;
+    bottom: max(22px, 4svh);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #e6dfca;
+    font: 11px/1.3 var(--fonte-texto);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 450ms ease;
+}
+.is-galeria-pronta .paisagens-convite { opacity: .78; }
+.paisagens-convite__fio {
+    display: block;
+    width: 28px;
+    height: 12px;
+    border-bottom: 1px solid #c8b369;
+    border-radius: 50%;
+    transform: rotate(-17deg);
+}
+
+/* Uma ficha reutilizada pelas doze fotos. A tinta é decorativa, o texto permanece HTML. */
+.paisagens-ficha {
+    --ficha-pigmento: none;
+    --ficha-recuo: 68px;
+    position: absolute;
+    z-index: 6;
+    width: clamp(264px, 22vw, 330px);
+    padding: 34px 29px 34px;
+    text-align: left;
+    color: #fbf6e6;
+    opacity: 0;
+    transform: translate3d(0, 6px, 0);
+    transition: opacity 250ms ease, transform 550ms cubic-bezier(.2,.7,.2,1), top 320ms cubic-bezier(.2,.7,.2,1);
+    filter: drop-shadow(0 14px 22px rgb(0 0 0 / 30%));
+}
+.paisagens-ficha[hidden] { display: none; }
+.paisagens-ficha.is-aberta { opacity: 1; transform: translate3d(0, 0, 0) rotate(0deg); }
+.paisagens-ficha__tinta {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    mask-image: var(--ficha-pigmento);
+    -webkit-mask-image: var(--ficha-pigmento);
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    overflow: hidden;
+}
+.paisagens-ficha__gesto { fill: none; stroke-linecap: round; }
+.paisagens-ficha__cerda { stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 1000ms cubic-bezier(.2,.65,.2,1) var(--cerda-atraso, 0ms); }
+.paisagens-ficha__gesto--azul { stroke: #174c70; }
+.paisagens-ficha__gesto--verde { stroke: #246043; }
+.paisagens-ficha__gesto--ouro { stroke: #c2a35c; }
+.paisagens-ficha.is-aberta .paisagens-ficha__cerda { stroke-dashoffset: 0; }
+.paisagens-ficha__risco { fill: none; stroke: #d1ae4e; stroke-width: 3; opacity: .7; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 800ms ease 160ms; }
+.paisagens-ficha.is-aberta .paisagens-ficha__risco { stroke-dashoffset: 0; }
+.paisagens-ficha__conteudo { position: relative; max-height: calc(var(--ficha-espaco, 100svh) - var(--ficha-recuo)); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #a89761 transparent; }
+.paisagens-ficha__regiao { margin-bottom: 9px; color: #f2dc97; font: 10px/1.5 var(--fonte-texto); letter-spacing: .17em; text-transform: uppercase; }
+.paisagens-ficha__nome { margin: 0 0 12px; color: #fff0b8; font: 600 clamp(32px, 2.9vw, 43px)/.98 "Caveat Aflora", cursive; letter-spacing: -.02em; }
+.paisagens-ficha__descricao { margin: 0; font: 400 13px/1.6 var(--fonte-texto); max-width: 30ch; }
+.paisagens-ficha__acao { margin-top: 17px; }
+.paisagens-ficha__navegacao { display: flex; align-items: center; gap: 10px; margin-top: 10px; width: max-content; }
+.paisagens-ficha__navegacao button { width: 44px; height: 36px; border: 0; border-radius: 50%; background: transparent; color: #eadba6; font: 23px/1 var(--fonte-texto); cursor: pointer; transition: background 220ms, transform 320ms; }
+.paisagens-ficha__navegacao button:hover { background: #e6cc8020; transform: translateX(2px); }
+.paisagens-ficha__navegacao button:first-child:hover { transform: translateX(-2px); }
+.paisagens-ficha__navegacao button:focus-visible { outline: 1px solid #eadba6; outline-offset: 1px; }
+.paisagens-ficha__navegacao span { min-width: 42px; text-align: center; color: #d7d7b7; font: 10px/1 var(--fonte-texto); letter-spacing: .1em; }
+.paisagens-ficha__credito { margin-top: 18px; font: 9px/1.45 var(--fonte-texto); color: #d5d8c6; }
+.paisagens-ficha__credito a { color: inherit; text-decoration-color: #d5d8c666; text-underline-offset: 2px; }
+.paisagens-ficha__ir {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+    border: 0;
+    padding: 4px 6px 8px;
+    background: none;
+    color: #fff4d0;
+    font: 600 26px/1 "Caveat Aflora", cursive;
+    text-decoration: none;
+    cursor: pointer;
+}
+.paisagens-ficha__ir::after { content: ''; position: absolute; left: 2px; right: -5px; bottom: 0; height: 7px; border-bottom: 1px solid #e3c56e; border-radius: 50%; transform: rotate(-3deg); }
+.paisagens-ficha__ir:disabled { opacity: 1; cursor: default; }
+.paisagens-ficha__ir:focus-visible, .paisagens-ficha__fechar:focus-visible { outline: 1px solid #fff4d0; outline-offset: 4px; }
+.paisagens-ficha__fechar { position: absolute; z-index: 1; right: 12px; top: 12px; border: 0; width: 32px; height: 32px; color: #f8edcc; background: transparent; font: 300 27px/1 var(--fonte-texto); cursor: pointer; }
+
+@media (max-width: 700px) {
+    .paisagens-conteudo.paisagens-galeria { --galeria-percurso: 180svh; }
+    .paisagens-grade { width: min(90vw, calc((100svh - 150px) * .75)); grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+    .paisagens-ficha { --ficha-recuo: 59px; width: min(310px, calc(100vw - 26px)); padding: 28px 27px 31px; }
+    .paisagens-ficha__nome { font-size: 37px; }
+    .paisagens-convite { bottom: 24px; font-size: 9px; letter-spacing: .1em; }
+}
+
+@media (max-height: 500px) {
+    .paisagens-ficha { --ficha-recuo: 40px; width: min(350px, calc(100vw - 26px)); padding: 20px 26px; }
+    .paisagens-ficha__nome { font-size: 32px; margin-bottom: 8px; }
+    .paisagens-ficha__acao { margin-top: 10px; }
+    .paisagens-ficha__credito { margin-top: 12px; }
+}
+
+/* Movimento reduzido: coleção navegável sem exigir o percurso longo de scroll. */
+.paisagens-galeria.is-reduzido { height: auto; }
+.is-reduzido .paisagens-palco { position: relative; height: auto; min-height: 100svh; padding: 110px 0 70px; display: flex; flex-direction: column; gap: 45px; }
+.is-reduzido .paisagens-palco > h1 { order: -1; }
+.is-reduzido .paisagens-grade { position: relative; width: min(86vw, 1100px); perspective: none; }
+.is-reduzido .paisagens-convite { display: none; }
+.is-reduzido .paisagens-cartao { opacity: 1; transform: none; }
+.is-reduzido .paisagens-foto img, .is-reduzido .paisagens-ficha, .is-reduzido .paisagens-ficha__cerda, .is-reduzido .paisagens-ficha__risco { transition: none; }

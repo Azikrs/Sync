@@ -1,8 +1,8 @@
 .header-principal {
     /* O JavaScript lê este estado; o limite fica apenas na media query abaixo. */
     --header-compacto: 0;
-    --header-tinta: #174b36;
-    --header-ouro: #d6b668;
+    --header-tinta: #03500a;
+    --header-ouro: #f5b410;
     --header-margem: clamp(100px, 50vw, 16.7vw);
     position: fixed;
     inset: 0 0 auto;
@@ -21,7 +21,7 @@
     background: rgba(5, 13, 10, 0.068);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
-    box-shadow: 0 1px 0 rgba(253, 253, 252, 0.377);
+    box-shadow: 0 1px 0 rgba(253, 253, 252, 0.185);
 }
 
 .header-marca {
@@ -33,7 +33,7 @@
 
 .header-marca img {
     display: block;
-    width: 104px;
+    width: 75px;
     height: auto;
     filter: brightness(100);
 }
@@ -156,7 +156,7 @@
 }
 
 .header-explorar__tinta {
-    stroke: #e6c66f;
+    stroke: #eeda25;
     stroke-width: 0;
     opacity: 0.7;
     stroke-dashoffset: 82;
@@ -207,7 +207,7 @@
 }
 
 .header-explorar:is(:hover, :focus-visible) .header-explorar__base {
-    fill: var(--header-tinta);
+    fill:#0350099d;
 }
 
 .header-explorar:is(:hover, :focus-visible) :is(.header-explorar__gesto, .header-explorar__tinta, .header-explorar__agua) {
@@ -254,7 +254,7 @@
     }
 
     .header-marca img {
-        width: clamp(88px, 12vw, 104px);
+        width: 100px;
     }
 
     .header-explorar {
@@ -349,7 +349,7 @@
         overflow-y: auto;
         overscroll-behavior: contain;
         padding: 12px var(--header-margem) 28px;
-        background: #081610ea;
+        background:#015012bd;
         box-shadow: 0 20px 30px rgb(0 0 0 / 20%);
         border-bottom: 1px solid rgb(214 182 104 / 24%);
         opacity: 0;
@@ -393,7 +393,7 @@
     }
 
     .menu-pronto .header-nav a[aria-current="page"]:is(:hover, :focus-visible)::after {
-        background: #fffaf0;
+        background: var(--header-ouro);
     }
 
     .menu-pronto .header-nav a::after {
@@ -402,7 +402,7 @@
     }
 
     .header-principal.menu-aberto {
-        background: #081610d8;
+        background: #015012ef;
     }
 
     .menu-aberto .header-nav {

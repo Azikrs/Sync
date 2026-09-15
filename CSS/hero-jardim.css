@@ -1,10 +1,14 @@
 .pagina-inicial-conteudo {
     position: relative;
     isolation: isolate;
-    --jardim-luz: 1;
-    --jardim-relevo: 1;
-  --jardim-ritmo: 1;
-  --jardim-agua: 1;
+    --jardim-luz: 0.5;
+    --jardim-relevo: 1.25;
+    --jardim-ritmo: 1;
+    --jardim-agua: 10;
+    --jardim-revelacao: 10;
+    --jardim-alcance: 1;
+    --jardim-atmosfera: 1;
+    --jardim-protecao: .55;
 }
 .hero-jardim {
     position: absolute;
@@ -16,7 +20,7 @@
     transform: translateX(-50%);
     overflow: hidden;
     pointer-events: none;
-    background: #0c1b18 url('../IMG/jardim-desktop.webp') center / 100% 100% no-repeat;
+    background: #030706 url('../IMG/jardim-desktop.webp') center / 100% 100% no-repeat;
     mask-image: linear-gradient(#000 0%, #000 80%, transparent 100%);
     -webkit-mask-image: linear-gradient(#000 0%, #000 80%, transparent 100%);
 }

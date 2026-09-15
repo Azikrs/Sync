@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="CSS/brasil-pintura.css">
   <link rel="stylesheet" href="CSS/efeitos-texto.css">
   <link rel="stylesheet" href="CSS/destinos.css">
+  <link rel="stylesheet" href="CSS/paisagens-galeria.css">
   <script defer src="JS/vendor/lenis.min.js"></script>
   <script defer src="JS/scroll.js"></script>
   <script defer src="JS/header.js"></script>
@@ -18,7 +19,11 @@
   <script defer src="JS/brasil-pintura.js"></script>
   <script defer src="JS/efeitos-texto.js"></script>
   <script defer src="JS/destinos.js"></script>
-  <title>Aflora | Explore o Brasil</title>
+  <script defer src="JS/paisagens-dados.js"></script>
+  <script defer src="JS/paisagens-lente.js"></script>
+  <script defer src="JS/paisagens-galeria.js"></script>
+  <link rel="shortcut icon" type="image/png" href="IMG/BrasisLogo.png">
+  <title>Brasis. | Descubra o Brasil</title>
 </head>
 <body>
   <header class="header-principal">
@@ -38,9 +43,9 @@
       </ul>
     </nav>
 
-    <a class="header-marca" href="#inicio" aria-label="Aflora — início">
+    <a class="header-marca" href="#inicio" aria-label="Brasis — início">
       <span class="header-marca__imagem">
-        <img src="IMG/Aflora.png" alt="Aflora" width="100">
+        <img src="IMG/Brasis.png" alt="Brasis">
       </span>
     </a>
 
@@ -64,7 +69,7 @@
     <section class="pagina-inicial-conteudo" id="inicio">
       <div class="hero-jardim" aria-hidden="true"><canvas></canvas></div>
       <div class="pagina-inicial-hero-top">
-        <h1><span data-revelar style=" --revelar-cor: #fff; width: 400px; --revelar-duracao: 700ms">Um país.</span>
+        <h1 data-jardim-resguardar><span data-revelar style=" --revelar-cor: #fff; width: 400px; --revelar-duracao: 700ms">Um país.</span>
             <span data-revelar style="--revelar-atraso: 300ms; --revelar-cor: #fff; width: 670px;"><em>Muitos <span class="texto-pincelado" data-pincelado>Brasis</span>.</em></span></h1>
         <button class="botao-destino" type="button">
           <svg class="botao-destino__rabisco" viewBox="0 0 300 90" aria-hidden="true" focusable="false">
@@ -79,7 +84,7 @@
         </button>
       </div>
 
-      <div class="pagina-inicial-hero-bottom">
+      <div class="pagina-inicial-hero-bottom" data-jardim-resguardar>
         <p data-surgir>Do litoral às montanhas, das grandes cidades aos lugares quase intocados, o Brasil revela paisagens, culturas e experiências completamente diferentes entre si. Descubra destinos que mostram essa diversidade e encontre novos caminhos para conhecer o país de um jeito mais autêntico.</p>
       </div>
     </section>
@@ -209,6 +214,94 @@
         </div>
       </section>
     </section>
+
+    <div class="paisagens">
+      <section class="paisagens-conteudo paisagens-galeria" id="paisagens" aria-labelledby="paisagens-titulo">
+        <div class="paisagens-palco">
+          <div class="paisagens-grade" role="group" aria-label="Paisagens para descobrir"></div>
+          <h1 id="paisagens-titulo">
+            <span class="paisagens-top-text">Do nosso chão</span>
+            <span class="paisagens-bottom-text">nascem paisagens.</span>
+          </h1>
+          <p class="paisagens-convite" aria-hidden="true"><span data-convite-paisagens>Role para revelar</span></p>
+          <div class="paisagens-ficha" id="paisagens-ficha" role="region" aria-label="Sobre a paisagem" hidden>
+            <svg class="paisagens-ficha__tinta" viewBox="0 0 360 360" preserveAspectRatio="none" aria-hidden="true">
+              <path fill="#123c2c" d="M8 18 53 10 48 6 340 12 351 34 343 108 351 150 345 228 354 332 316 345 202 337 160 349 18 337 10 310 18 260 5 240 15 168 6 103 13 64Z"/>
+              <path class="paisagens-ficha__gesto paisagens-ficha__gesto--azul" d="M-45 81 Q129 120 377 41 M-21 149 Q133 175 371 117" pathLength="100"/>
+              <path class="paisagens-ficha__gesto paisagens-ficha__gesto--verde" d="M-42 221 Q115 129 387 208 M-30 286 Q172 205 390 278" pathLength="100"/>
+              <path class="paisagens-ficha__risco" d="M26 345 Q143 328 322 346 M61 353 Q222 340 338 349" pathLength="100"/>
+            </svg>
+            <button class="paisagens-ficha__fechar" type="button" aria-label="Fechar detalhes da paisagem">×</button>
+            <div class="paisagens-ficha__conteudo" data-lenis-prevent>
+              <p class="paisagens-ficha__regiao"></p>
+              <h2 class="paisagens-ficha__nome"></h2>
+              <p class="paisagens-ficha__descricao"></p>
+              <div class="paisagens-ficha__acao"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="natureza">
+        <section class="natureza-conteudo">
+          <section class="natureza-titulo">
+            <h1 data-surgir class="natureza-top-text">A GRANDEZA</h1>
+            <h1 data-surgir style="--surgir-atraso: 300ms" class="natureza-bottom-text">DO BRASIL.</h1>
+          </section>
+          <section data-surgir class="natureza-rodape">
+            <h2>O Brasil vai muito além dos lugares que todo mundo já conhece.</h2>
+            <p>A Brasis reúne destinos, paisagens e experiências de diferentes regiões do país para ajudar você a descobrir novos lugares, entender melhor cada destino e encontrar caminhos para explorar o Brasil de um jeito mais consciente, curioso e autêntico.</p>
+          </section>
+        </section>
+    </div>
+    
   </main>
+
+  <footer class="rodape">
+    <div class="rodape-botao">
+      <button>
+        <span>Explore o que é nosso</span>
+        <img src="IMG/seta-diagonal.png" width="30" style="filter: invert(1);">
+      </button>
+    </div>
+
+    <div class="rodape-conteudo">
+      <div class="rodape-titulo">
+
+        <nav>
+          <ul>
+            <a href="#"><li><span>Voltar para o Início</span></li></a>
+            <a href="#"><li>Sobre</li></a>
+            <a href="#"><li>Destinos</li></a>
+            <a href="#"><li>Contate-nos</li></a>
+          </ul>
+        </nav>
+
+        <img src="IMG/Brasis.png" width="500">
+      </div>
+
+      <hr>
+
+      <div class="rodape-baixo">
+        <div class="rodape-redes">
+          <a href="https:/instagram.com">
+            <img src="IMG/instagram.png" style="filter: invert(1);" width="20">
+          </a>
+          <a href="https:/twitter.com">
+            <img src="IMG/twitter.png" style="filter: invert(1);" width="20">
+          </a>
+        </div>
+
+        <div class="rodape-slogan">
+          <p>AINDA HÁ MUITO BRASIL PARA DESCOBRIR.</p>
+        </div>
+
+        <div class="rodape-direitos">
+          <p>©Brasis. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
